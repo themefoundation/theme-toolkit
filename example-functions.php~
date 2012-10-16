@@ -53,56 +53,56 @@ function thtk_example_metaboxes() {
 		'priority' => 'high', // Optional.
 		'metabox_fields' => array(
 			array(
-				'id' => $prefix . 'textbox',
-				'title' => 'Text box',
-				'type' => 'text',
-				'description' => 'This is an example text box.', // Optional.
-				'valid' => 'text' // Optional. Defaults to 'text'
+				'id'				=> $prefix . 'textbox',
+				'title'			=> 'Text box',
+				'type'			=> 'text',
+				'description'	=> 'This is an example text box.', // Optional.
+				'valid'			=> 'text' // Optional. Defaults to 'text'
 			),
 			array(
-				'id' => $prefix . 'textarea',
-				'title' => 'Text area',
-				'type' => 'textarea',
-				'description' => 'This is an example textarea', // Optional.
-				'valid' => 'text' // Optional. Defaults to 'text'
+				'id'				=> $prefix . 'textarea',
+				'title'			=> 'Text area',
+				'type'			=> 'textarea',
+				'description'	=> 'This is an example textarea', // Optional.
+				'valid'			=> 'text' // Optional. Defaults to 'text'
 			),
 			array(
-				'id' => $prefix . 'select',
-				'title' => 'Select input',
-				'type' => 'select',
-				'options' => array('Option 1', 'Option 2', 'test'),
-				'description' => 'This is an example select input', // Optional.
+				'id'				=> $prefix . 'select',
+				'title'			=> 'Select input',
+				'type'			=> 'select',
+				'options'		=> array('Option 1', 'Option 2', 'test'),
+				'description'	=> 'This is an example select input', // Optional.
 				// 'valid' property is not available for select lists.
 				// The options listed in the 'options' property are automatically the only valid results.
 			),
 			array(
-				'id' => $prefix . 'radio',
-				'title' => 'Radio input',
-				'type' => 'radio',
-				'options' => array('Option 3', 'Option 4', 'test'),
-				'description' => 'This is an example radio input', // Optional.
+				'id'				=> $prefix . 'radio',
+				'title'			=> 'Radio input',
+				'type'			=> 'radio',
+				'options'		=> array('Option 3', 'Option 4', 'test'),
+				'description'	=> 'This is an example radio input', // Optional.
 				// 'valid' property is not available for radio buttons.
 				// The options listed in the 'options' property are automatically the only valid results.
 			),
 			array(
-				'id' => $prefix . 'checkbox',
-				'title' => 'Single checkbox',
-				'type' => 'checkbox',
-				'label' => 'Check this out!',
-				'description' => 'This is an example text box.', // Optional.
+				'id'				=> $prefix . 'checkbox',
+				'title'			=> 'Single checkbox',
+				'type'			=> 'checkbox',
+				'label'			=> 'Check this out!',
+				'description'	=> 'This is an example text box.', // Optional.
 				// 'valid' property is not available for checkboxes.
 				// The 'label' property will be the checked box value and the only valid result.
 			),
 			array(
-				'id' => $prefix . 'multicheck',
-				'title' => 'Multiple checkbox input',
-				'type' => 'multicheck',
-				'options' => array( // $id => $label for each checkbox
+				'id'				=> $prefix . 'multicheck',
+				'title'			=> 'Multiple checkbox input',
+				'type'			=> 'multicheck',
+				'options'		=> array( // $id => $label for each checkbox
 					$prefix . 'check_one' => 'Option 23',
 					$prefix . 'check_two' => 'Option 34',
 					$prefix . 'check_three' => 'test'
 				),
-				'description' => 'This is an example checkbox input', // Optional.
+				'description'	=> 'This is an example checkbox input', // Optional.
 				// 'valid' property is not available for multicheck.
 				// See explanation in "checkbox" section above.
 			),
@@ -115,9 +115,9 @@ function thtk_example_metaboxes() {
 		'post_type' => array( 'post' ), // Post types to display metabox.
 		'metabox_fields' => array(
 			array(
-				'id' => $prefix . 'another',
-				'title' => 'Another example',
-				'type' => 'text',
+				'id'				=> $prefix . 'another',
+				'title'			=> 'Another example',
+				'type'			=> 'text',
 			),
 		) // End array metabox_fields
 	); // End array $meta_boxes	
@@ -136,40 +136,40 @@ add_filter( 'thtk_metaboxes_filter', 'thtk_example_metaboxes' );
 function thtk_example_options(){
 
 	$theme_options = array(
-		'page_title' => 'Example Theme Options', // Displayed at top of the theme options page 
-		'menu_title' => 'Theme Options', // Displayed in the WordPress administration menu
-		'slug' => 'example-options', // Appears in the URL or the settings page (must be unique)
-		'option_group' => 'example_theme_options', // Options are saved to the database using this name
-		'settings_sections' => array( // Defines the seections and fields displayed on the theme options page
+		'page_title'			=> 'Example Theme Options', // Displayed at top of the theme options page 
+		'menu_title'			=> 'Theme Options', // Displayed in the WordPress administration menu
+		'slug'					=> 'example-options', // Appears in the URL or the settings page (must be unique)
+		'option_group'			=> 'example_theme_options', // Options are saved to the database using this name
+		'settings_sections'	=> array( // Defines the seections and fields displayed on the theme options page
 		
 			// Sets up "Header" settings section
 			array(
-				'section_id' => 'section_one',
-				'section_title' => 'First Section',
-				'section_callback' => '__return_false', // Optional. Used only if a custom callback is being needed.
+				'section_id' 			=> 'section_one',
+				'section_title'		=> 'First Section',
+				'section_callback'	=> '__return_false', // Optional. Used only if a custom callback is being needed.
 				
 				// Defines settings fields under the "First Section" settings section.
 				'section_fields' => array(
 					array(
-						'id' => 'text-box',
-						'title' => 'Text box',
-						'type' => 'text',
-						'description' => 'This is a text input', // Optional.
-						'valid' => 'text' // Optional, but recommended. Defaults to 'text'
+						'id'				=> 'text-box',
+						'title'			=> 'Text box',
+						'type'			=> 'text',
+						'description'	=> 'This is a text input', // Optional.
+						'valid'			=> 'text' // Optional, but recommended. Defaults to 'text'
 					),
 					array(
-						'id' => 'textarea',
-						'title' => 'Textarea',
-						'type' => 'textarea',
-						'description' => 'This is a textarea', // Optional.
-						'valid' => 'html' // Optional, but recommended. Defaults to 'text'
+						'id'				=> 'textarea',
+						'title'			=> 'Textarea',
+						'type'			=> 'textarea',
+						'description'	=> 'This is a textarea', // Optional.
+						'valid'			=> 'html' // Optional, but recommended. Defaults to 'text'
 					),
 					array(
-						'id' => 'selected',
-						'title' => 'Select example',
-						'type' => 'select',
-						'options' => array( 'one', 'two', 'three' ),
-						'description' => 'This is a select input example', // Optional.
+						'id'				=> 'selected',
+						'title'			=> 'Select example',
+						'type'			=> 'select',
+						'options'		=> array( 'one', 'two', 'three' ),
+						'description'	=> 'This is a select input example', // Optional.
 						// 'valid' property is not available for select lists.
 						// The options listed in the 'options' property are automatically the only valid results.
 					),
@@ -178,39 +178,39 @@ function thtk_example_options(){
 			
 			// Sets up "Footer" settings section
 			array(
-				'section_id' => 'section_two',
-				'section_title' => 'Second Section',
+				'section_id'			=> 'section_two',
+				'section_title'		=> 'Second Section',
 				
 				// Sets up fields in the "Footer" settings section
-				'section_fields' => array(
+				'section_fields'		=> array(
 					array(
-						'id' => 'radio',
-						'title' => 'Radio example',
-						'type' => 'radio',
-						'options' => array( 'four', 'five', 'six' ),
-						'description' => 'This is a radio input example', // Optional.
+						'id'				=> 'radio',
+						'title'			=> 'Radio example',
+						'type'			=> 'radio',
+						'options'		=> array( 'four', 'five', 'six' ),
+						'description'	=> 'This is a radio input example', // Optional.
 						// 'valid' property is not available for radio buttons.
 						// The options listed in the 'options' property are automatically the only valid results.
 					),
 					array(
-						'id' => 'checkbox',
-						'title' => 'Single checkbox example',
-						'type' => 'checkbox',
-						'label' => 'Checkbox label',
-						'description' => 'This is a checkbox input example', // Optional.
+						'id'				=> 'checkbox',
+						'title'			=> 'Single checkbox example',
+						'type'			=> 'checkbox',
+						'label'			=> 'Checkbox label',
+						'description'	=> 'This is a checkbox input example', // Optional.
 						// 'valid' property is not available for checkboxes.
 						// The 'label' property will become the checked box value and the only valid result.
 					),
 					array(
-						'id' => 'testcheck',
-						'title' => 'Multiple checkbox input',
-						'type' => 'multicheck',
-						'options' => array( // $id => $label for each checkbox
+						'id'				=> 'testcheck',
+						'title'			=> 'Multiple checkbox input',
+						'type'			=> 'multicheck',
+						'options'		=> array( // $id => $label for each checkbox
 							'check_one' => 'Option 23',
 							'check_two' => 'Option 34',
 							'check_three' => 'test'
 						),
-						'description' => 'This is a new and strange example checkbox input', // Optional.
+						'description'	=> 'This is a new and strange example checkbox input', // Optional.
 						// 'valid' property is not available for multicheck.
 						// See explanation in "checkbox" section above.
 					),
