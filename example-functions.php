@@ -26,8 +26,9 @@ function thtk_setup() {
 	require_once 'toolkit/toolkit.php';
 	
 	// Adds support for various toolkit features.
-	add_toolkit_support( 'theme-options' );
 	add_toolkit_support( 'metaboxes' );
+	add_toolkit_support( 'theme-options' );
+	add_toolkit_support( 'theme-customizer' );
 
 }
 add_action( 'init', 'thtk_setup' );
@@ -225,5 +226,76 @@ function thtk_example_options(){
 add_filter( 'thtk_theme_options_filter', 'thtk_example_options' );
 
 
+
+/**
+ * Defines theme customizer arrays
+ */
+function thtk_example_customizer() {
+	$customizer_section[] = array(
+		'section_id' => 'custom_settings', // Settings section ID.
+		'section_title' => 'Custom Settings', // Settings section title.
+		'section_description' => 'Test description...', // Optional. Adds descriptive title text to section title (only visible on mousover). Default: none.
+		'section_priority' => 30, // Optional. Determines placement in customizer panel. Default: 10.
+		'section_theme_supports' => 'widgets', // Optional. Only show section if theme supports this feature. Default: none.
+		'section_settings' => array(
+			array(
+				'id' => 'text4', // Form element ID.
+				'title' => 'Text input', // Form element label.
+				'type' => 'text', // Type of form input field.
+				'default' => 'Default input value', // Optional. Default form field value. Default: blank.
+				'valid' => 'text', // Optional. Determines which sanitization callback functio to use. Default: text.
+				'priority' => 20, // Optional. Determines display order of customization options. Default: 10. 
+				'transport' => 'refresh' // Optional. Determines how to transport the data to the theme customizer. Default: refresh.
+				// 'valid_js' => '' // Optional. Corresponds with the (apparently undocumented) sanitize_js_callback setting callback.
+
+			),
+			array(
+				'id' => 'check',
+				'title' => 'Checkbox input',
+				'type' => 'checkbox',
+				'valid' => 'text'
+			),
+			array(
+				'id' => 'select',
+				'title' => 'Select input',
+				'type' => 'select',
+				'choices' => array( // Array of id/label pairs.
+					'one ' => 'Option 1',
+					'two' => 'Option 2',
+					'three' => 'Option 3',
+				),
+				'default' => 'two',
+			),
+		)
+	); // End $customizer_section[]
+	
+	$customizer_section[] = array(
+		'section_id' => 'select',
+		'section_title' => 'More Settings',
+		'section_priority' => 30,
+		'section_settings' => array(
+			array(
+				'id' => 'radio',
+				'title' => 'Radio input',
+				'type' => 'select',
+				'choices' => array( // Array of id/label pairs.
+					'one ' => 'Option 1',
+					'two' => 'Option 2',
+					'three' => 'Option 3',
+				),
+			),
+			array(
+				'id' => 'pages',
+				'title' => 'Pages',
+				'type' => 'dropdown-pages',
+				'valid' => 'integer',
+			)
+			
+		)
+	); // End $customizer_section[]	
+	
+	return $customizer_section;
+}
+add_filter( 'thtk_customizer_filter', 'thtk_example_customizer' );
 
 
