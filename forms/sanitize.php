@@ -20,9 +20,9 @@
  * html tags from input before saving if $valid is left unset.
  *
  * @since 1.0
- * @param string $input Input data to be sanitized
- * @param string $valid Type of text to validate against (default: text)
- * @return string Sanitized text
+ * @param string $input Input data to be sanitized.
+ * @param string $valid Type of text to validate against (default: text).
+ * @return string Sanitized text.
  */
 function thtk_sanitize_text( $input, $valid = 'text' ) {
 	switch ( $valid ) {
@@ -30,7 +30,7 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 			return sanitize_text_field( $input );
 			break;
 		case 'html':
-			return wp_kses_post( force_balance_tags( $input ) );
+			return thtk_sanitize_html( $input );
 			break;
 		case 'url':
 			return esc_url_raw( $input );
@@ -39,10 +39,10 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 			return sanitize_email( $input );
 			break;
 		case 'integer':
-			return $input ? intval( $input ) : '';
+			return thtk_sanitize_integer( $input );
 			break;
 		case 'currency':
-			return $input ? number_format( $input, 2 ) : '';
+			return thtk_sanitize_currency( $input );
 			break;
 			
 		// Default should be unnecessary, but provided as a fallback anyway.
@@ -59,9 +59,9 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
  * Sanitizes select and radio inputs based on the "valid" property set in the original options array
  *
  * @since 1.0
- * @param string $input Input data to be sanitized
- * @param array $valid Array of allowed values
- * @return string Valid option from $valid array matching $input, otherwise null
+ * @param string $input Input data to be sanitized.
+ * @param array $valid Array of allowed values.
+ * @return string Valid option from $valid array matching $input, otherwise null.
  */
 function thtk_sanitize_multiple_choice( $input, $valid ) {
 	if( in_array( $input, $valid ) ) {
@@ -72,14 +72,16 @@ function thtk_sanitize_multiple_choice( $input, $valid ) {
 
 
 /**
- * Sanitizes checkbox inputs
+ * Sanitizes submitted checkbox values
  *
- * Sanitizes checkbox input based on the "valid" property set in the original options array
+ * Used to sanitize a checkbox input, although it could just as easily sanitize
+ * an string required to match another string. In order for a value to be
+ * returned, $input must match $valid.
  *
  * @since 1.0
- * @param string $input Input data to be sanitized
- * @param string $valid String to compare against $input
- * @return string Returns the $valid variable if equal to $input, otherwise null
+ * @param string $input Input data to be sanitized.
+ * @param string $valid String to compare against $input.
+ * @return string Returns the $valid string if equal to $input, otherwise null.
  */
 function thtk_sanitize_checkbox( $input, $valid ) {
 	if( $input == $valid ) {
@@ -87,4 +89,52 @@ function thtk_sanitize_checkbox( $input, $valid ) {
 	}  // End if
 } // End thtk_sanitize_checkbox()
 
+
+
+/**
+ * Sanitizes HTML input
+ *
+ * Removes disallowed HTML tags and closes any tags that were left open. 
+ *
+ * @since 1.0
+ * @param string $input Input data to be sanitized.
+ * @return string Returns the $valid string after sanitization.
+ */
+function thtk_sanitize_html( $input ) {
+	return wp_kses_post( force_balance_tags( $input ) );
+}
+
+
+
+/**
+ * Sanitizes integer input
+ *
+ * Returns the integer value of the $input.
+ *
+ * @since 1.0
+ * @param string $input Input data to be sanitized.
+ * @return string Returns the $valid string after sanitization.
+ */
+function thtk_sanitize_integer( $input ) {
+	return $input ? intval( $input ) : '';
+}
+
+
+
+/**
+ * Sanitizes currency input
+ *
+ * Returns the currency value of the $input.
+ *
+ * @since 1.0
+ * @param string $input Input data to be sanitized.
+ * @return string Returns the $valid string after sanitization.
+ */
+function thtk_sanitize_currency( $input ) {
+	if ( is_numeric( $input ) ) {
+		return $input ? number_format( $input, 2 ) : '';
+	} else {
+		return '';
+	}
+}
 

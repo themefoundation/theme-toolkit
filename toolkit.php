@@ -40,6 +40,12 @@ function add_toolkit_support( $feature ) {
 			require_once 'forms/sanitize.php';
 			break;
 		
+		// Loads files required for a theme customizer.
+		case 'theme-customizer' :
+			require_once 'theme-options/theme-customizer.php';
+			require_once 'forms/sanitize.php';
+			break;
+		
 		// Loads files required for custom metaboxes
 		case 'metaboxes' :
 			require_once 'metaboxes/metaboxes.php';

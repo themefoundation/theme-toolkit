@@ -117,12 +117,12 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 				break;
 
 			case 'select':
-				thtk_form_select( $id, $options, $id, $value );
+				thtk_form_select( $id, $choices, $id, $value );
 				break;
 
 			case 'radio':
 				echo '<fieldset>';
-				thtk_form_radio( $id, $options, $value );
+				thtk_form_radio( $id, $choices, $value );
 				echo '</fieldset>';
 				break;
 
@@ -131,9 +131,9 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 				break;
 
 			case 'multicheck':
-				foreach( $options as $option_name => $option_label ) {
-					$value = isset( $values[ $option_name ] ) ? esc_attr( $values[ $option_name ][ 0 ] ) : '';	
-					thtk_form_checkbox( $option_name, $option_label, $value );
+				foreach( $choices as $choice_name => $choice_label ) {
+					$value = isset( $values[ $choice_name ] ) ? esc_attr( $values[ $choice_name ][ 0 ] ) : '';	
+					thtk_form_checkbox( $choice_name, $choice_label, $value );
 				}
 				break;
 				
@@ -204,11 +204,11 @@ function thtk_metabox_save( $post_id ) {
 					break;
 					
 				case 'select':
-					update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'options' ] ) );
+					update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
 					break;
 					
 				case 'radio':
-					update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'options' ] ) );
+					update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
 					break;
 
 				case 'checkbox':
@@ -216,9 +216,9 @@ function thtk_metabox_save( $post_id ) {
 					break;
 
 				case 'multicheck':
-					foreach ( $field[ 'options' ] as $option_name => $option_label ) {
+					foreach ( $field[ 'choices' ] as $option_name => $option_label ) {
 						update_post_meta( $post_id, $option_name, thtk_sanitize_checkbox( $_POST[ $option_name ], $option_label ) );
-					} // End foreach $field[ 'options' ]
+					} // End foreach $field[ 'choices' ]
 					break;
 
 			} // End switch $field[ 'type' ]

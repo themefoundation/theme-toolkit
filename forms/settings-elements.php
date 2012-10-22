@@ -64,14 +64,14 @@ function thtk_form_settings_textarea( $element_details ) {
  * Outputs a select list along with a description if provided.
  *
  * @since 1.0
- * @param array $element_details Holds details for creating input box (id, name, options, value, description).
+ * @param array $element_details Holds details for creating input box (id, name, choices, value, description).
  */
 function thtk_form_settings_select( $element_details ) {
 	extract( $element_details );
 	$value = isset( $value ) ?  esc_html( $value ) : '';
 
 	// Displays the text input
-	thtk_form_select( $name, $options, $id, $value );
+	thtk_form_select( $name, $choices, $id, $value );
 	
 	// Displays the description if provided
 	if( !empty( $description ) ) {
@@ -87,7 +87,7 @@ function thtk_form_settings_select( $element_details ) {
  * Outputs a radio button group along with a description if provided.
  * 
  * @since 1.0
- * @param array $element_details Holds details for creating input box (id, name, options, value, description).
+ * @param array $element_details Holds details for creating input box (id, name, choices, value, description).
  */
 function thtk_form_settings_radio( $element_details ) {
 	extract( $element_details );
@@ -95,7 +95,7 @@ function thtk_form_settings_radio( $element_details ) {
 	
 	// Displays the radio inputs
 	echo '<fieldset>';
-	thtk_form_radio( $name, $options, $value );
+	thtk_form_radio( $name, $choices, $value );
 	echo '</fieldset>';
 
 	// Displays the description if provided

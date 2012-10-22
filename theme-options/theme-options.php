@@ -142,7 +142,7 @@ function thtk_theme_options_content() {
 
 			// Adds the options array to the field details if this is a multiple choice field .
 			if ( $field[ 'type' ] == 'select' || $field[ 'type' ] == 'radio' ) {
-				$settings_field[ 'options' ] = $field[ 'options' ];
+				$settings_field[ 'choices' ] = $field[ 'choices' ];
 			}
 			
 			if ( $field[ 'type' ] == 'checkbox' ) {
@@ -178,9 +178,9 @@ function thtk_theme_options_content() {
 
 				$title = $field[ 'title' ];
 				$count = 1;
-				$total = count( $field[ 'options' ] );
+				$total = count( $field[ 'choices' ] );
 				
-				foreach ( $field[ 'options' ] as $name => $label ) {
+				foreach ( $field[ 'choices' ] as $name => $label ) {
 
 					if ( $count != 1 ) {
 						$title = '';
@@ -217,7 +217,7 @@ function thtk_theme_options_content() {
 					);
 					
 					$count++;
-				} // End foreach $field[ 'options' ]
+				} // End foreach $field[ 'choices' ]
 
 			} // End if/else
 		} // End foreach $section[ 'section_fields' ]
@@ -261,11 +261,11 @@ function thtk_sanitize_theme_options( $input ) {
 					break;
 					
 				case 'select':
-					$valid_settings[ $field[ 'id' ] ] = thtk_sanitize_multiple_choice( $input[ $field[ 'id' ] ], $field[ 'options' ] );
+					$valid_settings[ $field[ 'id' ] ] = thtk_sanitize_multiple_choice( $input[ $field[ 'id' ] ], $field[ 'choices' ] );
 					break;
 					
 				case 'radio':
-					$valid_settings[ $field[ 'id' ] ] = thtk_sanitize_multiple_choice( $input[ $field[ 'id' ] ], $field[ 'options' ] );
+					$valid_settings[ $field[ 'id' ] ] = thtk_sanitize_multiple_choice( $input[ $field[ 'id' ] ], $field[ 'choices' ] );
 					break;
 
 				case 'checkbox':
@@ -273,9 +273,9 @@ function thtk_sanitize_theme_options( $input ) {
 					break;
 					
 				case 'multicheck':
-					foreach ( $field['options'] as $name => $label ) {
+					foreach ( $field['choices'] as $name => $label ) {
 						$valid_settings[ $name ] = thtk_sanitize_checkbox( $input[ $name ], $label );
-					} // End foreach $field['options']
+					} // End foreach $field['choices']
 					break;
 			} // End switch $field[ 'type' ]
 		} // End foreach $section[ 'section_fields' ]
