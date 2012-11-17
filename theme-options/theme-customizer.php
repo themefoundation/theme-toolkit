@@ -48,7 +48,7 @@ function thtk_customizer_menu() {
 	// Adds the Customize link to the Appearance admin menu section
 	add_theme_page( $thtk_customizer_title, $thtk_customizer_title, 'edit_theme_options', 'customize.php' );
 }
-add_action ('admin_menu', 'thtk_customizer_menu');
+add_action ( 'admin_menu', 'thtk_customizer_menu' );
 
 
 

@@ -10,7 +10,7 @@
  * @version	1.0
  */
 
-
+// TODO: change add_toolkit_support( feature ) to add_theme_support( toolkit_feature )
 
 // Defines LOCATION constant. This is the folder name/path to the toolkit in your theme.
 define( 'LOCATION', 'toolkit' );
@@ -35,7 +35,6 @@ function add_toolkit_support( $feature ) {
 		// Loads files required for a theme options page.
 		case 'theme-options' :
 			require_once 'theme-options/theme-options.php';
-			require_once 'forms/settings-elements.php';
 			require_once 'forms/form-elements.php';
 			require_once 'forms/sanitize.php';
 			break;

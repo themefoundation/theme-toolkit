@@ -56,7 +56,7 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 /**
  * Sanitizes multiple choice inputs
  *
- * Sanitizes select and radio inputs based on the "valid" property set in the original options array
+ * Sanitizes select and radio inputs based on the "choices" array set in the original options array
  *
  * @since 1.0
  * @param string $input Input data to be sanitized.
@@ -64,7 +64,7 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
  * @return string Valid option from $valid array matching $input, otherwise null.
  */
 function thtk_sanitize_multiple_choice( $input, $valid ) {
-	if( in_array( $input, $valid ) ) {
+	if( array_key_exists( $input, $valid ) ) {
 		return $input;
 	} // End if
 }  // End thtk_sanitize_multiple_choice
@@ -80,12 +80,11 @@ function thtk_sanitize_multiple_choice( $input, $valid ) {
  *
  * @since 1.0
  * @param string $input Input data to be sanitized.
- * @param string $valid String to compare against $input.
  * @return string Returns the $valid string if equal to $input, otherwise null.
  */
-function thtk_sanitize_checkbox( $input, $valid ) {
-	if( $input == $valid ) {
-		return $valid;
+function thtk_sanitize_checkbox( $input ) {
+	if( $input ) {
+		return 'true';
 	}  // End if
 } // End thtk_sanitize_checkbox()
 
@@ -116,7 +115,9 @@ function thtk_sanitize_html( $input ) {
  * @return string Returns the $valid string after sanitization.
  */
 function thtk_sanitize_integer( $input ) {
-	return $input ? intval( $input ) : '';
+	if( is_numeric( $input ) ) {
+		return intval( $input );
+	}
 }
 
 

@@ -90,62 +90,11 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 		extract( $metabox_field );
 
 		// Sets previously stored value and checks for new description.
-		$value = isset( $values[ $metabox_field[ 'id' ] ] ) ? esc_attr( $values[ $metabox_field[ 'id' ] ][ 0 ] ) : '';
-		$description = isset( $metabox_field[ 'description' ] ) ? $metabox_field[ 'description' ] : '';				
-		
-		// HTML to match WordPress native formatting.
-		echo '<tr><th>';
-		
-		// Displays the label for the text input if provided.
-		if ( $type != 'radio' ) {
-			thtk_form_label( $title, $id );
-		} else {
-			echo $title;
-		} // End if/else
-		
-		// HTML to match WordPress native formatting.
-		echo '</th><td>';
-
-		// Calls form element display functions based on the type of input field.
-		switch ( $type ) {
-			case 'text':
-				thtk_form_text( $id, $id, $value );
-				break;
-
-			case 'textarea':
-				thtk_form_textarea( $id, $id, $value );
-				break;
-
-			case 'select':
-				thtk_form_select( $id, $choices, $id, $value );
-				break;
-
-			case 'radio':
-				echo '<fieldset>';
-				thtk_form_radio( $id, $choices, $value );
-				echo '</fieldset>';
-				break;
-
-			case 'checkbox':
-				thtk_form_checkbox( $id, $label, $value );
-				break;
-
-			case 'multicheck':
-				foreach( $choices as $choice_name => $choice_label ) {
-					$value = isset( $values[ $choice_name ] ) ? esc_attr( $values[ $choice_name ][ 0 ] ) : '';	
-					thtk_form_checkbox( $choice_name, $choice_label, $value );
-				}
-				break;
-				
-		} // End switch $type
-
-		// Adds the description to the field details if available
-		if ( isset( $description ) ) {
-			thtk_form_description( $description );
-		}
-		
-		// HTML to match WordPress native formatting.
-		echo '</td></tr>';
+		$metabox_field[ 'value' ] = isset( $values[ $metabox_field[ 'id' ] ] ) ? esc_attr( $values[ $metabox_field[ 'id' ] ][ 0 ] ) : '';
+	
+		// Uses the THTK_Form_Metabox class to dispay the metabox setting.
+		$thtk_input = new THTK_Form_Metabox( $metabox_field );
+		echo $thtk_input->get_metabox();
 
 	} // End foreach $metabox_fields[ 'args' ]
 

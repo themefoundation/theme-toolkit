@@ -109,6 +109,7 @@ function thtk_theme_options_content() {
 
 	// Gets the option values stored in the database
 	$thtk_stored_options = get_option( $thtk_theme_options[ 'option_group' ] );
+	//print_r($thtk_stored_options);
 
 	// Registers the theme options settings and sanitization callback.
 	register_setting(
@@ -134,44 +135,24 @@ function thtk_theme_options_content() {
 		// Populates the settings sections.
 		foreach ( $section[ 'section_fields' ] as $field) {
 			
-			// Defines the field details.
-			$settings_field = 	array(	
-				'id' => $field[ 'id' ],
-				'name' => $thtk_theme_options[ 'option_group' ] . '[' . $field[ 'id' ] . ']',
-			);
+			$field[ 'name' ] = $thtk_theme_options[ 'option_group' ] . '[' . $field[ 'id' ] . ']';
 
-			// Adds the options array to the field details if this is a multiple choice field .
-			if ( $field[ 'type' ] == 'select' || $field[ 'type' ] == 'radio' ) {
-				$settings_field[ 'choices' ] = $field[ 'choices' ];
-			}
-			
-			if ( $field[ 'type' ] == 'checkbox' ) {
-				$settings_field[ 'label' ] = $field[ 'label' ];
-			} // End if
-			
 			// Adds settings field if not multicheck input. Otherwise, loops through multicheck settings fields.
 			if ( $field[ 'type' ] != 'multicheck' ) {
 				
-				// Adds the description to the field details if available.
-				if ( isset( $field[ 'description' ] ) ) {
-					$settings_field[ 'description' ] = $field[ 'description' ];
-				}
-
 				// Adds the previously stored value to the field details if available.
-				if ( isset( $thtk_stored_options[ $field[ 'id' ] ] ) ) {
-					$settings_field[ 'value' ] = $thtk_stored_options[ $field[ 'id' ] ];
-				} else {
-					$settings_field[ 'value' ] = '';
+				if ( !empty( $thtk_stored_options[ $field[ 'id' ] ] ) ) {
+					$field[ 'value' ] = $thtk_stored_options[ $field[ 'id' ] ];
 				}
 				
 				// Adds the settings field to the settings section.
 				add_settings_field(
 					$field[ 'id' ],
 					$field[ 'title' ],
-					'thtk_form_settings_' . $field[ 'type' ],
+					'thtk_form_setting',
 					$thtk_theme_options[ 'slug' ],
 					$section[ 'section_id' ],
-					$settings_field
+					$field
 				);
 			
 			} else {
@@ -224,6 +205,23 @@ function thtk_theme_options_content() {
 	} // End foreach $thtk_theme_options[ 'settings_sections' ]
 } // End thtk_theme_options_content()
 add_action( 'admin_init', 'thtk_theme_options_content' );
+
+
+
+/**
+ * Displays a setting
+ *
+ * @since 1.0
+ * @param array $element_details Holds details for creating input box (id, name, value, description).
+ */
+function thtk_form_setting( $element_details ) {
+	
+	// Displays the text input
+	$input = new THTK_Form_Setting( $element_details );
+	echo $input->get_setting();
+	//thtk_form_text( $name, $id, $value );
+
+} // End thtk_form_settings_text()
 
 
 
@@ -283,5 +281,8 @@ function thtk_sanitize_theme_options( $input ) {
 	
 	return $valid_settings;
 } // End thtk_sanitize_theme_options()
+
+
+
 
 
