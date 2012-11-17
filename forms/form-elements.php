@@ -274,7 +274,11 @@ class THTK_Form_Metabox extends THTK_Form_Input{
 		
 		// Generates the output string
 		$output .= '<tr class="' . esc_attr( $id ) . '"><th>';
-		$output .= $this->get_label( $title, $id );
+		if ( $type == 'checkbox' || $type == 'radio' ) {
+			$output .= $title;
+		} else {
+			$output .= $this->get_label( $title, $id );
+		}
 		$output .= '</th><td>';
 		$output .= '<span class="' .esc_attr( $align ) . '">';
 		$output .= $before;

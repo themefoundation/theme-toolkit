@@ -39,28 +39,30 @@ function thtk_get_metaboxes_array( $thtk_metaboxes = array() ) {
  */
 function thtk_metabox_setup() {
 	$thtk_metaboxes = thtk_get_metaboxes_array();
-	foreach ( $thtk_metaboxes as $metabox ) {
-		foreach ( $metabox[ 'post_type' ] as $page ) {
-			
-			if( empty( $metabox[ 'context' ] ) ) {
-				$metabox[ 'context' ] = 'normal';
-			}
-			
-			if( empty( $metabox[ 'priority' ] ) ) {
-				$metabox[ 'priority' ] = 'high';
-			}
-			
-			add_meta_box(
-				$metabox[ 'id' ],
-				$metabox[ 'title' ],
-				'thtk_display_metabox_content',
-				$page,
-				$metabox[ 'context' ],
-				$metabox[ 'priority' ],
-				$metabox[ 'metabox_fields' ]
-			);
-		} // End foreach $metabox[ 'post_type' ]
-	} // End foreach $thtk_metaboxes
+	if ( !empty( $thtk_metaboxes ) ) {
+		foreach ( $thtk_metaboxes as $metabox ) {
+			foreach ( $metabox[ 'post_type' ] as $page ) {
+				
+				if( empty( $metabox[ 'context' ] ) ) {
+					$metabox[ 'context' ] = 'normal';
+				}
+				
+				if( empty( $metabox[ 'priority' ] ) ) {
+					$metabox[ 'priority' ] = 'high';
+				}
+				
+				add_meta_box(
+					$metabox[ 'id' ],
+					$metabox[ 'title' ],
+					'thtk_display_metabox_content',
+					$page,
+					$metabox[ 'context' ],
+					$metabox[ 'priority' ],
+					$metabox[ 'metabox_fields' ]
+				);
+			} // End foreach $metabox[ 'post_type' ]
+		} // End foreach $thtk_metaboxes
+	} // End if
 } // End thtk_metabox_setup()
 add_action( 'add_meta_boxes', 'thtk_metabox_setup' );
 
