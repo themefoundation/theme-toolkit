@@ -87,7 +87,6 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 	
 	// Loops through each array element and calls the corresponding display function.
 	foreach( $metabox_fields[ 'args' ] as $metabox_field ) {
-		extract( $metabox_field );
 
 		// Sets previously stored value and checks for new description.
 		$metabox_field[ 'value' ] = isset( $values[ $metabox_field[ 'id' ] ] ) ? esc_attr( $values[ $metabox_field[ 'id' ] ][ 0 ] ) : '';
