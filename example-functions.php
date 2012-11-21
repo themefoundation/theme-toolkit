@@ -71,7 +71,7 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 					'id' => $prefix . 'select',
 					'title' => 'Select input',
 					'type' => 'select',
-					'options' => array('Option 1', 'Option 2', 'test'),
+					'choices' => array('Option 1', 'Option 2', 'test'),
 					'description' => 'This is an example select input', // Optional.
 					// 'valid' property is not available for select lists.
 					// The options listed in the 'options' property are automatically the only valid results.
@@ -80,7 +80,7 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 					'id' => $prefix . 'radio',
 					'title' => 'Radio input',
 					'type' => 'radio',
-					'options' => array('Option 3', 'Option 4', 'test'),
+					'choices' => array('Option 3', 'Option 4', 'test'),
 					'description' => 'This is an example radio input', // Optional.
 					// 'valid' property is not available for radio buttons.
 					// The options listed in the 'options' property are automatically the only valid results.
@@ -98,7 +98,7 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 					'id' => $prefix . 'multicheck',
 					'title' => 'Multiple checkbox input',
 					'type' => 'multicheck',
-					'options' => array( // $id => $label for each checkbox
+					'choices' => array( // $id => $label for each checkbox
 						$prefix . 'check_one' => 'Option 23',
 						$prefix . 'check_two' => 'Option 34',
 						$prefix . 'check_three' => 'test'
@@ -172,7 +172,7 @@ if ( !function_exists( 'thtk_example_options' ) ) {
 							'id' => 'selected',
 							'title' => 'Select example',
 							'type' => 'select',
-							'options' => array( 'one', 'two', 'three' ),
+							'choices' => array( 'one', 'two', 'three' ),
 							'description' => 'This is a select input example', // Optional.
 							// 'valid' property is not available for select lists.
 							// The options listed in the 'options' property are automatically the only valid results.
@@ -191,7 +191,7 @@ if ( !function_exists( 'thtk_example_options' ) ) {
 							'id' => 'radio',
 							'title' => 'Radio example',
 							'type' => 'radio',
-							'options' => array( 'four', 'five', 'six' ),
+							'choices' => array( 'four', 'five', 'six' ),
 							'description' => 'This is a radio input example', // Optional.
 							// 'valid' property is not available for radio buttons.
 							// The options listed in the 'options' property are automatically the only valid results.
@@ -209,7 +209,7 @@ if ( !function_exists( 'thtk_example_options' ) ) {
 							'id' => 'testcheck',
 							'title' => 'Multiple checkbox input',
 							'type' => 'multicheck',
-							'options' => array( // $id => $label for each checkbox
+							'choices' => array( // $id => $label for each checkbox
 								'check_one' => 'Option 23',
 								'check_two' => 'Option 34',
 								'check_three' => 'test'
