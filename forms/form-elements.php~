@@ -443,5 +443,34 @@ class THTK_Form_Formatted extends THTK_Form_Input{
 
 
 
+if( class_exists( 'WP_Customize_Control' ) ) {
+	/**
+	 * Adds textarea support to the theme customizer
+	 *
+	 * Much of the code for this class was taken from Otto's tutorial on
+	 * custom controls: 
+	 * http://ottopress.com/2012/making-a-custom-control-for-the-theme-customizer
+	 *
+	 * @since 1.0
+	 */
+	class THTK_Customize_Textarea_Control extends WP_Customize_Control {
+		public $type = 'textarea';
+	
+		/**
+		 * Overrides the render_content() function in the parent class
+		 *
+		 * @since 1.0
+		 */
+		public function render_content() {
+			?>
+				<label>
+					<span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+					<textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
+				</label>
+			<?php
+		}
+	} // End class THTK_Customize_Textarea_Control
+} // End if
+
 
 

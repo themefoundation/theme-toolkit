@@ -249,6 +249,7 @@ if( class_exists( 'WP_Customize_Control' ) ) {
 	 * http://ottopress.com/2012/making-a-custom-control-for-the-theme-customizer
 	 *
 	 * @since 1.0
+	 * @param string $type The type of form element being generated.
 	 */
 	class THTK_Customize_Textarea_Control extends WP_Customize_Control {
 		

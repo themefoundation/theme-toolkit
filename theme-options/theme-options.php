@@ -77,6 +77,8 @@ function thtk_theme_options_template() {
 	// Gets the theme options array
 	$thtk_theme_options = thtk_get_theme_options_array();
 	
+		s($thtk_theme_options);
+	
 	// Displays the theme options page structure.
 	?>
 		<div class="wrap">
@@ -124,13 +126,25 @@ function thtk_theme_options_content() {
 		// Sets the default section callback if none is specified.
 		$section[ 'section_callback' ] = isset( $section[ 'section_callback' ] ) ? $section[ 'section_callback' ] : '__return_false';
 		
-		// Creates the settings sections.
-		add_settings_section(
-			$section[ 'section_id' ],
-			$section[ 'section_title' ],
-			$section[ 'section_callback' ],
-			$thtk_theme_options[ 'slug' ]
-		);
+		if( empty( $section[ 'section_priority' ] ) ) {
+			// Creates the settings sections.
+			add_settings_section(
+				$section[ 'section_id' ],
+				$section[ 'section_title' ],
+				$section[ 'section_callback' ],
+				$thtk_theme_options[ 'slug' ]
+			);
+		} else {
+		
+			// Creates the settings sections.
+			add_settings_section(
+				$section[ 'section_id' ],
+				$section[ 'section_title' ],
+				$section[ 'section_callback' ],
+				$thtk_theme_options[ 'slug' ],
+				$section[ 'section_priority' ]
+			);
+		}
 		
 		// Populates the settings sections.
 		foreach ( $section[ 'section_fields' ] as $field) {

@@ -10,7 +10,7 @@
  * @version	1.0
  */
 
-// TODO: change add_toolkit_support( feature ) to add_theme_support( toolkit_feature )
+// TODO: decide if benefits outweigh problems with changing add_toolkit_support( feature ) to add_theme_support( toolkit_feature )
 
 // Defines LOCATION constant. This is the folder name/path to the toolkit in your theme.
 define( 'LOCATION', 'toolkit' );
@@ -54,6 +54,39 @@ function add_toolkit_support( $feature ) {
 			
 	} // End switch $feature
 } // End add_toolkit_support()
+
+
+
+/**
+ * Adds support for individual toolkit features
+ *
+ * Selectively loads only files required for the toolkit features that are in
+ * use. However, this doesn't work properly because it uses require() instead
+ * of require_once(). Also, it requires a full path, which means that we
+ * would need to know if the toolkit was located in the parent or the
+ * child theme directory. For these reasons, this function is not currently
+ * in use.
+ *
+ * @since toolkit 1.0
+ */
+function thtk_add_support(){
+	
+	// Require theme options files
+	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/theme-options/theme-options.php' );
+	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/forms/form-elements.php' );
+	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/forms/sanitize.php' );
+	
+	// Require theme customizer files
+	require_if_theme_supports( 'toolkit-customizer', get_template_directory() . '/toolkit/theme-options/theme-customizer.php' );
+	require_if_theme_supports( 'toolkit-customizer', get_template_directory() . '/toolkit/forms/sanitize.php' );
+	
+	// Require metabox files
+	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/metaboxes/metaboxes.php' );
+	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/forms/form-elements.php' );
+	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/forms/sanitize.php' );
+	
+}
+//add_action( 'after_setup_theme', 'thtk_add_support' );
 
 
 
