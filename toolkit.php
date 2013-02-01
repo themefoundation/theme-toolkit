@@ -10,14 +10,6 @@
  * @version	1.0
  */
 
-// TODO: decide if benefits outweigh problems with changing add_toolkit_support( feature ) to add_theme_support( toolkit_feature )
-
-// Defines LOCATION constant. This is the folder name/path to the toolkit in your theme.
-define( 'LOCATION', 'toolkit' );
-
-// Defines RELATIONSHIP constant. Must be either parent or child.
-define( 'RELATIONSHIP', 'parent' );
-
 
 
 /**
@@ -31,13 +23,6 @@ define( 'RELATIONSHIP', 'parent' );
 function add_toolkit_support( $feature ) {
 	
 	switch ( $feature ) {
-		
-		// Loads files required for a theme options page.
-		case 'theme-options' :
-			require_once 'theme-options/theme-options.php';
-			require_once 'forms/form-elements.php';
-			require_once 'forms/sanitize.php';
-			break;
 		
 		// Loads files required for a theme customizer.
 		case 'theme-customizer' :
@@ -57,74 +42,5 @@ function add_toolkit_support( $feature ) {
 
 
 
-/**
- * Adds support for individual toolkit features
- *
- * Selectively loads only files required for the toolkit features that are in
- * use. However, this doesn't work properly because it uses require() instead
- * of require_once(). Also, it requires a full path, which means that we
- * would need to know if the toolkit was located in the parent or the
- * child theme directory. For these reasons, this function is not currently
- * in use.
- *
- * @since toolkit 1.0
- */
-function thtk_add_support(){
-	
-	// Require theme options files
-	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/theme-options/theme-options.php' );
-	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/forms/form-elements.php' );
-	require_if_theme_supports( 'toolkit-theme-options', get_template_directory() . '/toolkit/forms/sanitize.php' );
-	
-	// Require theme customizer files
-	require_if_theme_supports( 'toolkit-customizer', get_template_directory() . '/toolkit/theme-options/theme-customizer.php' );
-	require_if_theme_supports( 'toolkit-customizer', get_template_directory() . '/toolkit/forms/sanitize.php' );
-	
-	// Require metabox files
-	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/metaboxes/metaboxes.php' );
-	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/forms/form-elements.php' );
-	require_if_theme_supports( 'toolkit-metaboxes', get_template_directory() . '/toolkit/forms/sanitize.php' );
-	
-}
-//add_action( 'after_setup_theme', 'thtk_add_support' );
-
-
-
-/**
- * Enqueues theme options scripts
- *
- * Loads javascript files used by the theme options toolkit feature.
- *
- * @since 1.0
- * @param string $hook_suffix Contains a string specifying the WordPress admin page being viewed.
- */
-function thtk_theme_options_enqueue_scripts( $hook_suffix ) {
-	global $thtk_theme_options_page; 
-	if ( $thtk_theme_options_page == $hook_suffix ) {
-		wp_enqueue_script( 'thtk-theme-options', thtk_get_toolkit_url() . '/theme-options/theme-options.js', array( 'jquery' ) );
-	} // End if
-} // End thtk_theme_options_enqueue_scripts
-
-
-
-/**
- * Gets the toolkit folder URL
- *
- * Returns the location of the toolkit folder currently in use. 
- *
- * @since 1.0
- * @return string Returns URL of the toolkit folder in use.
- */
-function thtk_get_toolkit_url() {
-	
-	if ( RELATIONSHIP == 'child' ) {
-		$theme_path = get_template_directory_uri();
-	} else {
-		$theme_path = get_stylesheet_directory_uri();
-	} // End if/else
-	
-	$theme_path .= '/' . LOCATION;
-	return $theme_path;
-} // End thtk_get_toolkit_url()
 
 

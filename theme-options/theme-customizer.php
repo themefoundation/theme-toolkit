@@ -124,11 +124,11 @@ function thtk_add_customizer_section( $wp_customize, $section ) {
  */
 function thtk_add_customizer_setting( $wp_customize, $section, $setting) {
 	extract( $setting );
-		
-	// Defines array to pass to add_setting().
-	$setting_array = array(
-		'default' => $default,
-	);
+	
+	if ( !empty( $default ) ) {
+		// Defines array to pass to add_setting().
+		$setting_array[ 'default' ] = $default;
+	}
 	
 	// Sets optional theme support property.
 	if ( !empty( $theme_supports ) ) {
@@ -186,7 +186,7 @@ function thtk_add_customizer_setting( $wp_customize, $section, $setting) {
 	if ( !empty( $valid_js ) ) {
 		$setting_array[ 'sanitize_js_callback' ] = $valid_js;
 	}
-	
+
 	// Sets optional transport method.
 	if ( !empty( $transport ) ) {
 		$setting_array[ 'transport' ] = $transport;
@@ -194,8 +194,6 @@ function thtk_add_customizer_setting( $wp_customize, $section, $setting) {
 
 	// Adds setting to theme customizer.
 	$wp_customize->add_setting( $id, $setting_array );
-	
-	
 	
 	// Defines array to pass to add_control().
 	$control_array = array(

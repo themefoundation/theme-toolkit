@@ -44,6 +44,9 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 		case 'currency':
 			return thtk_sanitize_currency( $input );
 			break;
+		case 'color':
+			return sanitize_hex_color( $input );
+			break;
 			
 		// Default should be unnecessary, but provided as a fallback anyway.
 		default:

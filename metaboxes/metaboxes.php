@@ -87,6 +87,8 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 	// Gets stored values from the database.
 	$values = get_post_custom( $post->ID );
 	
+	$thtk_input = new THTK_Form_Metabox();
+	
 	// Loops through each array element and calls the corresponding display function.
 	foreach( $metabox_fields[ 'args' ] as $metabox_field ) {
 
@@ -94,8 +96,8 @@ function thtk_display_metabox_content( $post, $metabox_fields ) {
 		$metabox_field[ 'value' ] = isset( $values[ $metabox_field[ 'id' ] ] ) ? esc_attr( $values[ $metabox_field[ 'id' ] ][ 0 ] ) : '';
 	
 		// Uses the THTK_Form_Metabox class to dispay the metabox setting.
-		$thtk_input = new THTK_Form_Metabox( $metabox_field );
-		echo $thtk_input->get_metabox();
+		
+		echo $thtk_input->get_metabox( $metabox_field );
 
 	} // End foreach $metabox_fields[ 'args' ]
 

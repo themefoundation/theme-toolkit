@@ -27,10 +27,9 @@ function thtk_setup() {
 	
 	// Adds support for various toolkit features.
 	add_toolkit_support( 'metaboxes' );
-	add_toolkit_support( 'theme-options' );
 	add_toolkit_support( 'theme-customizer' );
 
-}
+} // End function thtk_setup()
 add_action( 'init', 'thtk_setup' );
 
 
@@ -126,108 +125,11 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 		// Add other metaboxes here as needed.
 		
 		return $meta_boxes;
-	} // End thtk_example_metaboxes()
+	} // End function thtk_example_metaboxes()
 } // End if 
 add_filter( 'thtk_metaboxes_filter', 'thtk_example_metaboxes' );
 
 
-
-// Checks to make sure child theme hasn't used this function before executing.
-if ( !function_exists( 'thtk_example_options' ) ) {
-	/**
-	 * Defines theme options array
-	 */
-	function thtk_example_options(){
-	
-		$theme_options = array(
-			'page_title' => 'Example Theme Options', // Displayed at top of the theme options page 
-			'menu_title' => 'Theme Options', // Displayed in the WordPress administration menu
-			'slug' => 'example-options', // Appears in the URL or the settings page (must be unique)
-			'option_group' => 'example_theme_options', // Options are saved to the database using this name
-			'settings_sections' => array( // Defines the seections and fields displayed on the theme options page
-			
-				// Sets up "Header" settings section
-				array(
-					'section_id' => 'section_one',
-					'section_title' => 'First Section',
-					'section_callback' => '__return_false', // Optional. Used only if a custom callback is being needed.
-					
-					// Defines settings fields under the "First Section" settings section.
-					'section_fields' => array(
-						array(
-							'id' => 'text-box',
-							'title' => 'Text box',
-							'type' => 'text',
-							'description' => 'This is a text input', // Optional.
-							'valid' => 'text' // Optional, but recommended. Defaults to 'text'
-						),
-						array(
-							'id' => 'textarea',
-							'title' => 'Textarea',
-							'type' => 'textarea',
-							'description' => 'This is a textarea', // Optional.
-							'valid' => 'html' // Optional, but recommended. Defaults to 'text'
-						),
-						array(
-							'id' => 'selected',
-							'title' => 'Select example',
-							'type' => 'select',
-							'choices' => array( 'one', 'two', 'three' ),
-							'description' => 'This is a select input example', // Optional.
-							// 'valid' property is not available for select lists.
-							// The options listed in the 'options' property are automatically the only valid results.
-						),
-					), // End section_fields array.
-				), // End section array.
-				
-				// Sets up "Footer" settings section
-				array(
-					'section_id' => 'section_two',
-					'section_title' => 'Second Section',
-					
-					// Sets up fields in the "Footer" settings section
-					'section_fields' => array(
-						array(
-							'id' => 'radio',
-							'title' => 'Radio example',
-							'type' => 'radio',
-							'choices' => array( 'four', 'five', 'six' ),
-							'description' => 'This is a radio input example', // Optional.
-							// 'valid' property is not available for radio buttons.
-							// The options listed in the 'options' property are automatically the only valid results.
-						),
-						array(
-							'id' => 'checkbox',
-							'title' => 'Single checkbox example',
-							'type' => 'checkbox',
-							'label' => 'Checkbox label',
-							'description' => 'This is a checkbox input example', // Optional.
-							// 'valid' property is not available for checkboxes.
-							// The 'label' property will become the checked box value and the only valid result.
-						),
-						array(
-							'id' => 'testcheck',
-							'title' => 'Multiple checkbox input',
-							'type' => 'multicheck',
-							'choices' => array( // $id => $label for each checkbox
-								'check_one' => 'Option 23',
-								'check_two' => 'Option 34',
-								'check_three' => 'test'
-							),
-							'description' => 'This is a new and strange example checkbox input', // Optional.
-							// 'valid' property is not available for multicheck.
-							// See explanation in "checkbox" section above.
-						),
-					), // End section_fields array.
-				), // End section array.
-				
-			), // End settings_sections array.
-		); // End $theme_options array.
-		
-		return $theme_options;
-	} // End thtk_example_options()
-} // End if 
-add_filter( 'thtk_theme_options_filter', 'thtk_example_options' );
 
 
 // Checks to make sure child theme hasn't used this function before executing.
@@ -236,6 +138,10 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 	 * Defines theme customizer arrays
 	 */
 	function thtk_example_customizer() {
+		
+		// Defines $prefix for setting IDs. Optional. 
+		$prefix = 'example_';
+
 		$customizer_section[] = array(
 			'section_id' => 'custom_settings', // Settings section ID.
 			'section_title' => 'Custom Settings', // Settings section title.
@@ -244,7 +150,7 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 			'section_theme_supports' => 'widgets', // Optional. Only show section if theme supports this feature. Default: none.
 			'section_settings' => array(
 				array(
-					'id' => 'text4', // Form element ID.
+					'id' => $prefix . 'text4', // Form element ID.
 					'title' => 'Text input', // Form element label.
 					'type' => 'text', // Type of form input field.
 					'default' => 'Default input value', // Optional. Default form field value. Default: blank.
@@ -255,17 +161,17 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 	
 				),
 				array(
-					'id' => 'check',
+					'id' => $prefix . 'check',
 					'title' => 'Checkbox input',
 					'type' => 'checkbox',
 					'valid' => 'text'
 				),
 				array(
-					'id' => 'select',
+					'id' => $prefix . 'select',
 					'title' => 'Select input',
 					'type' => 'select',
 					'choices' => array( // Array of id/label pairs.
-						'one ' => 'Option 1',
+						'one' => 'Option 1',
 						'two' => 'Option 2',
 						'three' => 'Option 3',
 					),
@@ -280,17 +186,17 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 			'section_priority' => 30,
 			'section_settings' => array(
 				array(
-					'id' => 'radio',
+					'id' => $prefix . 'radio',
 					'title' => 'Radio input',
 					'type' => 'select',
 					'choices' => array( // Array of id/label pairs.
-						'one ' => 'Option 1',
+						'one' => 'Option 1',
 						'two' => 'Option 2',
 						'three' => 'Option 3',
 					),
 				),
 				array(
-					'id' => 'pages',
+					'id' => $prefix . 'pages',
 					'title' => 'Pages',
 					'type' => 'dropdown-pages',
 					'valid' => 'integer',
@@ -300,7 +206,7 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 		); // End $customizer_section[]	
 		
 		return $customizer_section;
-	} // End thtk_example_customizer()
+	} // End function thtk_example_customizer()
 } // End if 
 add_filter( 'thtk_customizer_filter', 'thtk_example_customizer' );
 
