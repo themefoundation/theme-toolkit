@@ -131,7 +131,6 @@ add_filter( 'thtk_metaboxes_filter', 'thtk_example_metaboxes' );
 
 
 
-
 // Checks to make sure child theme hasn't used this function before executing.
 if ( !function_exists( 'thtk_example_customizer' ) ) {
 	/**
@@ -141,69 +140,88 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 		
 		// Defines $prefix for setting IDs. Optional. 
 		$prefix = 'example_';
-
+		
+		// Defines theme cusotmizer sections and settings
 		$customizer_section[] = array(
-			'section_id' => 'custom_settings', // Settings section ID.
-			'section_title' => 'Custom Settings', // Settings section title.
-			'section_description' => 'Test description...', // Optional. Adds descriptive title text to section title (only visible on mousover). Default: none.
-			'section_priority' => 30, // Optional. Determines placement in customizer panel. Default: 10.
-			'section_theme_supports' => 'widgets', // Optional. Only show section if theme supports this feature. Default: none.
+			'section_id' => 'example_settings', // Settings section ID.
+			'section_title' => 'Example Settings', // Settings section title.
+			'section_description' => 'Section description...', // Optional. Adds descriptive title text to section title (only visible on mousover). Default: none.
+			'section_priority' => 200, // Optional. Determines placement in customizer panel. Default: 10.
 			'section_settings' => array(
 				array(
-					'id' => $prefix . 'text4', // Form element ID.
-					'title' => 'Text input', // Form element label.
+					'id' => $prefix . 'textbox', // Form element ID.
+					'title' => 'Text box', // Form element label.
 					'type' => 'text', // Type of form input field.
-					'default' => 'Default input value', // Optional. Default form field value. Default: blank.
-					'valid' => 'text', // Optional. Determines which sanitization callback functio to use. Default: text.
-					'priority' => 20, // Optional. Determines display order of customization options. Default: 10. 
-					'transport' => 'refresh' // Optional. Determines how to transport the data to the theme customizer. Default: refresh.
-					// 'valid_js' => '' // Optional. Corresponds with the (apparently undocumented) sanitize_js_callback setting callback.
-	
+					'default' => 'Default content', // Optional. Default form field value. Default: blank.
+					'valid' => 'text', // Optional. Determines which sanitization callback function to use. Default: text.
+					'priority' => 5, // Optional. Determines display order of customization options. Default: 10.
+					'transport' => 'refresh', // Optional. Determines how to transport the data to the theme customizer. Default: refresh.
+					//'valid_js' => '' // Optional. Corresponds with the (largely undocumented) sanitize_js_callback setting callback.
 				),
 				array(
-					'id' => $prefix . 'check',
-					'title' => 'Checkbox input',
+					'id' => $prefix . 'checkbox',
+					'title' => 'Checkbox',
 					'type' => 'checkbox',
-					'valid' => 'text'
 				),
 				array(
-					'id' => $prefix . 'select',
-					'title' => 'Select input',
+					'id' => $prefix . 'radio_buttons',
+					'title' => 'Radio Buttons',
+					'type' => 'radio',
+					'default' => 'left',
+					'choices' => array( // Array of id/label pairs.
+						'left' => 'Left',
+						'right' => 'Right',
+						'center' => 'Center',
+					),
+				),
+				array(
+					'id' => $prefix . 'select_list',
+					'title' => 'Select list',
 					'type' => 'select',
+					'default' => 'two',
 					'choices' => array( // Array of id/label pairs.
 						'one' => 'Option 1',
 						'two' => 'Option 2',
 						'three' => 'Option 3',
 					),
-					'default' => 'two',
+				),
+				array(
+					'id' => $prefix . 'textarea',
+					'title' => 'Textarea',
+					'type' => 'textarea',
 				),
 			)
 		); // End $customizer_section[]
-		
+		 
 		$customizer_section[] = array(
-			'section_id' => 'select',
+			'section_id' => 'more_settings',
 			'section_title' => 'More Settings',
-			'section_priority' => 30,
+			'section_theme_supports' => 'widgets', // Optional. Only show section if theme supports this feature. Default: none.
 			'section_settings' => array(
-				array(
-					'id' => $prefix . 'radio',
-					'title' => 'Radio input',
-					'type' => 'select',
-					'choices' => array( // Array of id/label pairs.
-						'one' => 'Option 1',
-						'two' => 'Option 2',
-						'three' => 'Option 3',
-					),
-				),
 				array(
 					'id' => $prefix . 'pages',
 					'title' => 'Pages',
 					'type' => 'dropdown-pages',
 					'valid' => 'integer',
-				)
-				
+				),
+				array(
+					'id' => $prefix . 'color',
+					'title' => 'Color picker',
+					'type' => 'color',
+					'valid' => 'color',
+				),
+				array(
+					'id' => $prefix . 'file',
+					'title' => 'File uploader',
+					'type' => 'upload',
+				),
+				array(
+					'id' => $prefix . 'image',
+					'title' => 'File image',
+					'type' => 'image',
+				),
 			)
-		); // End $customizer_section[]	
+		); // End $customizer_section[]
 		
 		return $customizer_section;
 	} // End function thtk_example_customizer()
