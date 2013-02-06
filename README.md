@@ -17,6 +17,6 @@ Tookit is a modular theme toolkit for WordPress. It was designed with two goals 
 Installation & Setup
 ---------------------
 
-1. Place the "toolkit" directory into the base directory of your theme.
+1. Place the "toolkit" directory into the base directory of your theme. If you download the zip file from github, the default folder name is theme-toolkit-master. I would suggest changing the name of this folder to simply "toolkit" so that it matches the code examples provided. You are free to name the folder anything you'd like, but you'll then need to modify the code you use to match.
 2. Use code examples from the example-functions.php in your own functions.php file to begin
    taking advantage of the features that the toolkit has to offer.
