@@ -93,19 +93,6 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 					// 'valid' property is not available for checkboxes.
 					// The 'label' property will be the checked box value and the only valid result.
 				),
-				array(
-					'id' => $prefix . 'multicheck',
-					'title' => 'Multiple checkbox input',
-					'type' => 'multicheck',
-					'choices' => array( // $id => $label for each checkbox
-						$prefix . 'check_one' => 'Option 23',
-						$prefix . 'check_two' => 'Option 34',
-						$prefix . 'check_three' => 'test'
-					),
-					'description' => 'This is an example checkbox input', // Optional.
-					// 'valid' property is not available for multicheck.
-					// See explanation in "checkbox" section above.
-				),
 			) // End array metabox_fields
 		); // End array $meta_boxes
 		
