@@ -35,6 +35,11 @@ function add_toolkit_support( $feature ) {
 			require_once 'metaboxes/metaboxes.php';
 			require_once 'forms/form-elements.php';
 			require_once 'forms/sanitize.php';
+			$thtk_metabox_array = array();
+			$thtk_metabox_array = apply_filters( 'thtk_metaboxes_filter', $thtk_metabox_array );
+			$thtk_metaboxes = new THTK_Meta_Boxes($thtk_metabox_array);
+			add_action( 'add_meta_boxes', array($thtk_metaboxes, 'meta_box_setup') );
+			add_action( 'save_post', array($thtk_metaboxes, 'meta_box_save' ) );
 			break;
 			
 	} // End switch $feature
