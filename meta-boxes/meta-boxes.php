@@ -1,9 +1,9 @@
 <?php
 /**
- * Custom metaboxes
+ * Custom meta boxes
  *
  * @package Theme Toolkit
- * @subpackage Metaboxes
+ * @subpackage Meta Boxes
  */
 
 /**
@@ -29,10 +29,10 @@ class THTK_Meta_Boxes{
 
 
 	/**
-	 * Adds metaboxes to appropriate admin pages
+	 * Adds meta boxes to appropriate admin pages
 	 *
-	 * Loops through metabox array (usually set in the theme's functions.php file)
-	 * and creates metaboxes by calling the $this->metabox_content() function.
+	 * Loops through meta box array (usually set in the theme's functions.php file)
+	 * and creates meta boxes by calling the $this->meta_box_content() function.
 	 *
 	 * @since 1.0
 	 */	
@@ -62,7 +62,7 @@ class THTK_Meta_Boxes{
 						$page,
 						$meta_box[ 'context' ],
 						$meta_box[ 'priority' ],
-						$meta_box[ 'metabox_fields' ]
+						$meta_box[ 'meta_box_fields' ]
 					);
 					
 				} // End foreach $meta_box[ 'post_type' ]
@@ -73,25 +73,25 @@ class THTK_Meta_Boxes{
 	
 	
 	/**
-	 * Displays metabox content
+	 * Displays meta box content
 	 *
-	 * Displays metabox content based on the metabox array, usually set in the
+	 * Displays meta box content based on the meta box array, usually set in the
 	 * theme's functions.php file.
 	 *
 	 * @since 1.0
 	 * @param array $post The current post object.
-	 * @param array $metabox_fields The fields that will populate the metabox.
+	 * @param array $meta_box_fields The fields that will populate the meta box.
 	 */
 	public function meta_box_content( $post, $meta_box_fields ) {
-		echo '<div class="thtk-metabox"><table class="form-table">';
+		echo '<div class="thtk-meta-box"><table class="form-table">';
 		
 		// Sets security nonce
-		wp_nonce_field( 'thtk_metabox_nonce', 'metabox_nonce' );
+		wp_nonce_field( 'thtk_meta_box_nonce', 'meta_box_nonce' );
 		
 		// Gets stored values from the database.
 		$values = get_post_custom( $post->ID );
 		
-		$thtk_input = new THTK_Form_Metabox();
+		$thtk_input = new THTK_Form_Meta_Box();
 		
 		// Loops through each array element and calls the corresponding display function.
 		foreach( $meta_box_fields[ 'args' ] as $meta_box_field ) {
@@ -99,23 +99,22 @@ class THTK_Meta_Boxes{
 			// Sets previously stored value and checks for new description.
 			$meta_box_field[ 'value' ] = isset( $values[ $meta_box_field[ 'id' ] ] ) ? esc_attr( $values[ $meta_box_field[ 'id' ] ][ 0 ] ) : '';
 		
-			// Uses the THTK_Form_Metabox class to dispay the metabox setting.
-			
-			echo $thtk_input->get_metabox( $meta_box_field );
+			// Uses the THTK_Form_Meta_Box class to dispay the meta box setting.
+			echo $thtk_input->get_meta_box( $meta_box_field );
 	
 		} // End foreach $meta_box_fields[ 'args' ]
 	
 		// HTML to match WordPress native formatting.
-		echo '</table></div><!-- .thtk-metabox -->';
+		echo '</table></div><!-- .thtk-meta-box -->';
 		
 	} // End meta_box_content()
 	
 	
 	
 	/**
-	 * Saves metabox values
+	 * Saves meta box values
 	 *
-	 * Saves the content of the custom metaboxes to the database.
+	 * Saves the content of the custom meta boxes to the database.
 	 *
 	 * @since 1.0
 	 * @param int $post_id The current post id.
@@ -128,7 +127,7 @@ class THTK_Meta_Boxes{
 		} // End if
 		
 		// Exits if the nonce is missing or can't be verified.
-		if ( !isset( $_POST[ 'metabox_nonce' ] ) || !wp_verify_nonce( $_POST[ 'metabox_nonce' ], 'thtk_metabox_nonce' ) ) {
+		if ( !isset( $_POST[ 'meta_box_nonce' ] ) || !wp_verify_nonce( $_POST[ 'meta_box_nonce' ], 'thtk_meta_box_nonce' ) ) {
 			return;
 		} // End if
 		
@@ -137,11 +136,11 @@ class THTK_Meta_Boxes{
 			return;
 		} // End if
 	
-		// Loops through the metabox arrays.
+		// Loops through the meta box arrays.
 		foreach ( $this->meta_boxes as $meta_box ) {
 			
-			// Loops through the fields of each metabox array, sanitizing and saving input.
-			foreach ( $meta_box[ 'metabox_fields' ] as $field ) {
+			// Loops through the fields of each meta box array, sanitizing and saving input.
+			foreach ( $meta_box[ 'meta_box_fields' ] as $field ) {
 			
 				// Calls sanitization functions and saves results based on the type of input field.
 				switch ( $field[ 'type' ] ) {
@@ -175,7 +174,7 @@ class THTK_Meta_Boxes{
 	
 				} // End switch $field[ 'type' ]
 	
-			} // End foreach $meta_box[ 'metabox_fields' ]
+			} // End foreach $meta_box[ 'meta_box_fields' ]
 			
 		} // End foreach $this->meta_boxes
 	

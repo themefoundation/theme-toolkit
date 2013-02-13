@@ -237,21 +237,21 @@ class THTK_Form_Input {
 
 
 /**
- * Metabox form input class
+ * Meta box form input class
  *
- * Extends the standard form input class with formatting specific to metaboxes.
+ * Extends the standard form input class with formatting specific to meta boxes.
  *
  * @since 1.0
  */
-class THTK_Form_Metabox extends THTK_Form_Input{
+class THTK_Form_Meta_Box extends THTK_Form_Input{
 	
 	/**
-	 * Displays a form element with metabox formatting
+	 * Displays a form element with meta box formatting
 	 * 
 	 * @since 1.0
-	 * @return string The fully formatted metabox option.
+	 * @return string The fully formatted meta box option.
 	 */
-	function get_metabox( $args ) {
+	function get_meta_box( $args ) {
 		
 		// Sets default variables for details not defined for this element.
 		$particulars = $this->get_particulars( $args );
@@ -300,9 +300,9 @@ class THTK_Form_Metabox extends THTK_Form_Input{
 		// Returns the output string.
 		return $output;
 		
-	} // End get_metabox()
+	} // End get_meta_box()
 	
-} // End class THTK_Form_Metabox
+} // End class THTK_Form_Meta_Box
 
 
 

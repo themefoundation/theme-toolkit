@@ -34,7 +34,7 @@ function add_toolkit_support( $feature ) {
 		case 'meta-boxes' :
 		
 			// Includes required files.
-			require_once 'metaboxes/metaboxes.php';
+			require_once 'meta-boxes/meta-boxes.php';
 			require_once 'forms/form-elements.php';
 			require_once 'forms/sanitize.php';
 			

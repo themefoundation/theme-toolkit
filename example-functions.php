@@ -37,21 +37,21 @@ add_action( 'init', 'thtk_setup' );
 // Checks to make sure child theme hasn't used this function before executing.
 if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 	/**
-	 * Defines metabox arrays
+	 * Defines meta box arrays
 	 */
 	function thtk_example_meta_boxes() {
 	
 		// Defines $prefix. Should begin with an underscore unless you want fields to be doubled in the Custom Fields editor.
 		$prefix = '_example_';
 		
-		// Defines metabox array.
+		// Defines meta box array.
 		$meta_boxes[] = array(
-			'id' => 'example_metabox',
-			'title' => 'Example Metabox',
-			'post_type' => array( 'page', 'post' ), // Post types to display metabox.
+			'id' => 'example_meta_box',
+			'title' => 'Example Meta Box',
+			'post_type' => array( 'page', 'post' ), // Post types to display meta box.
 			'context' => 'normal', // Optional.
 			'priority' => 'high', // Optional.
-			'metabox_fields' => array(
+			'meta_box_fields' => array(
 				array(
 					'id' => $prefix . 'textbox',
 					'title' => 'Text box',
@@ -93,20 +93,20 @@ if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 					// 'valid' property is not available for checkboxes.
 					// The 'label' property will be the checked box value and the only valid result.
 				),
-			) // End array metabox_fields
+			) // End array meta_box_fields
 		); // End array $meta_boxes
 		
 			$meta_boxes[] = array(
-			'id' => 'another_metabox',
-			'title' => 'Another Metabox',
-			'post_type' => array( 'post' ), // Post types to display metabox.
-			'metabox_fields' => array(
+			'id' => 'another_meta_box',
+			'title' => 'Another Meta Box',
+			'post_type' => array( 'post' ), // Post types to display meta box.
+			'meta_box_fields' => array(
 				array(
 					'id' => $prefix . 'another',
 					'title' => 'Another example',
 					'type' => 'text',
 				),
-			) // End array metabox_fields
+			) // End array meta_box_fields
 		); // End array $meta_boxes	
 		
 		// Add other meta boxes here as needed.
