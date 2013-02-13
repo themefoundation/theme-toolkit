@@ -26,7 +26,7 @@ function thtk_setup() {
 	require_once 'toolkit/toolkit.php';
 	
 	// Adds support for various toolkit features.
-	add_toolkit_support( 'metaboxes' );
+	add_toolkit_support( 'meta-boxes' );
 	add_toolkit_support( 'theme-customizer' );
 
 } // End function thtk_setup()
@@ -35,11 +35,11 @@ add_action( 'init', 'thtk_setup' );
 
 
 // Checks to make sure child theme hasn't used this function before executing.
-if ( !function_exists( 'thtk_example_metaboxes' ) ) {
+if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 	/**
 	 * Defines metabox arrays
 	 */
-	function thtk_example_metaboxes() {
+	function thtk_example_meta_boxes() {
 	
 		// Defines $prefix. Should begin with an underscore unless you want fields to be doubled in the Custom Fields editor.
 		$prefix = '_example_';
@@ -109,12 +109,12 @@ if ( !function_exists( 'thtk_example_metaboxes' ) ) {
 			) // End array metabox_fields
 		); // End array $meta_boxes	
 		
-		// Add other metaboxes here as needed.
+		// Add other meta boxes here as needed.
 		
 		return $meta_boxes;
-	} // End function thtk_example_metaboxes()
+	} // End function thtk_example_meta_boxes()
 } // End if 
-add_filter( 'thtk_metaboxes_filter', 'thtk_example_metaboxes' );
+add_filter( 'thtk_meta_boxes_filter', 'thtk_example_meta_boxes' );
 
 
 

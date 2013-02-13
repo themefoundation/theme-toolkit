@@ -22,6 +22,8 @@ class THTK_Meta_Boxes{
 	 */	
 	public function __construct($meta_boxes){
 		$this->meta_boxes = $meta_boxes;
+			add_action( 'add_meta_boxes', array( $this, 'meta_box_setup' ) );
+			add_action( 'save_post', array( $this, 'meta_box_save' ) );
 	}
 
 

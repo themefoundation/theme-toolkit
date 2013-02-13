@@ -30,16 +30,19 @@ function add_toolkit_support( $feature ) {
 			require_once 'forms/sanitize.php';
 			break;
 		
-		// Loads files required for custom metaboxes
-		case 'metaboxes' :
+		// Adds support for custom meta boxes.
+		case 'meta-boxes' :
+		
+			// Includes required files.
 			require_once 'metaboxes/metaboxes.php';
 			require_once 'forms/form-elements.php';
 			require_once 'forms/sanitize.php';
-			$thtk_metabox_array = array();
-			$thtk_metabox_array = apply_filters( 'thtk_metaboxes_filter', $thtk_metabox_array );
-			$thtk_metaboxes = new THTK_Meta_Boxes($thtk_metabox_array);
-			add_action( 'add_meta_boxes', array($thtk_metaboxes, 'meta_box_setup') );
-			add_action( 'save_post', array($thtk_metaboxes, 'meta_box_save' ) );
+			
+			// Adds filter for attaching meta box array.
+			$thtk_meta_box_array = apply_filters( 'thtk_meta_boxes_filter', array() );
+			
+			// Passes meta box array to a new instance of the meta box class.
+			$thtk_meta_boxes = new THTK_Meta_Boxes($thtk_meta_box_array);
 			break;
 			
 	} // End switch $feature
