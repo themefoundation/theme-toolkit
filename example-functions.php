@@ -26,11 +26,50 @@ function thtk_setup() {
 	require_once 'toolkit/toolkit.php';
 	
 	// Adds support for various toolkit features.
+	add_toolkit_support( 'custom-post-types' );
+	add_toolkit_support( 'menus' );
 	add_toolkit_support( 'meta-boxes' );
 	add_toolkit_support( 'theme-customizer' );
 
+
 } // End function thtk_setup()
 add_action( 'init', 'thtk_setup' );
+
+
+
+// Checks to make sure child theme hasn't used this function before executing.
+if ( !function_exists( 'thtk_example_post_types' ) ) {
+	/**
+	 * Defines custom post type arrays
+	 */
+	function thtk_example_post_types() {
+	
+		// Defines single post type.
+		$custom_post_types[] = array(
+			'id' => 'example_post_type',
+			'title' => 'Examples',
+			'title_singular' => 'Example',
+			'labels' => array(
+				'not_found' => 'No examples were found. Sorry :(',
+			),
+			'menu_position' => 5,
+			'hierarchical' => true,
+			'supports' => array( 'title', 'page-attributes' ),
+		);
+
+		// Defines single post type.
+		$custom_post_types[] = array(
+			'id' => 'another_post_type',
+			'title' => 'Samples',
+			'title_singular' => 'Sample',
+		);
+		
+		// Add other post types here as needed.
+		
+		return $custom_post_types;
+	} // End function thtk_example_post_types()
+} // End if 
+add_filter( 'thtk_custom_post_types_filter', 'thtk_example_post_types' );
 
 
 
