@@ -24,6 +24,17 @@ function add_toolkit_support( $feature ) {
 	
 	switch ( $feature ) {
 		
+		case 'custom-post-types' :
+	
+			// Loads files required for a theme customizer.
+			require_once 'custom-post-types/custom-post-types.php';
+
+			// Adds filter for attaching custom post type array.
+			$thtk_custom_post_type_array = apply_filters( 'thtk_custom_post_types_filter', array() );
+			
+			// Passes meta box array to a new instance of the custom post type class.
+			$thtk_custom_post_types = new THTK_Custom_Post_Types( $thtk_custom_post_type_array );
+			break;
 
 	
 		case 'theme-customizer' :
@@ -34,20 +45,19 @@ function add_toolkit_support( $feature ) {
 			break;
 			
 			
-
 		case 'menus' :
 		
 			// Loads files required for custom menus.
 			require_once 'menus/menus.php';
 			
-			// Adds filter for attaching meta box array.
+			// Adds filter for attaching menu array.
 			$thtk_menus_array = apply_filters( 'thtk_menus_filter', array() );
 			
-			// Passes meta box array to a new instance of the meta box class.
-			$thtk_menus = new THTK_Menus($thtk_menus_array);
+			// Passes meta box array to a new instance of the menu class.
+			$thtk_menus = new THTK_Menus( $thtk_menus_array );
 			break;
 		
-		// Adds support for custom meta boxes.
+
 		case 'meta-boxes' :
 		
 			// Includes required files.
@@ -59,7 +69,7 @@ function add_toolkit_support( $feature ) {
 			$thtk_meta_box_array = apply_filters( 'thtk_meta_boxes_filter', array() );
 			
 			// Passes meta box array to a new instance of the meta box class.
-			$thtk_meta_boxes = new THTK_Meta_Boxes($thtk_meta_box_array);
+			$thtk_meta_boxes = new THTK_Meta_Boxes( $thtk_meta_box_array );
 			break;
 			
 	} // End switch $feature
