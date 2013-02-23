@@ -24,10 +24,27 @@ function add_toolkit_support( $feature ) {
 	
 	switch ( $feature ) {
 		
-		// Loads files required for a theme customizer.
+
+	
 		case 'theme-customizer' :
+	
+			// Loads files required for a theme customizer.
 			require_once 'theme-options/theme-customizer.php';
 			require_once 'forms/sanitize.php';
+			break;
+			
+			
+
+		case 'menus' :
+		
+			// Loads files required for custom menus.
+			require_once 'menus/menus.php';
+			
+			// Adds filter for attaching meta box array.
+			$thtk_menus_array = apply_filters( 'thtk_menus_filter', array() );
+			
+			// Passes meta box array to a new instance of the meta box class.
+			$thtk_menus = new THTK_Menus($thtk_menus_array);
 			break;
 		
 		// Adds support for custom meta boxes.
