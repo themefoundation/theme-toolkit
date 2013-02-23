@@ -50,7 +50,7 @@ class THTK_Menus{
 	public function __construct($menus){
 		$this->menus = $menus;
 		add_action( 'init', array( $this, 'menu_setup' ), 100 );
-	} // End __construct()
+	} // End function __construct()
 
 
 
@@ -63,7 +63,7 @@ class THTK_Menus{
 	public function get_particulars( $args ) {
 		$particulars = wp_parse_args( $args, $this->defaults );
 		return $particulars;
-	} // End get_particulars()
+	} // End function get_particulars()
 
 
 
@@ -100,7 +100,7 @@ class THTK_Menus{
 			register_nav_menus( $menu_registration );
 			
 		} // End if
-	} // End menu_setup()
+	} // End function menu_setup()
 	
 	
 	
@@ -144,6 +144,6 @@ class THTK_Menus{
 
 		// Removes the current menu from the menu array.
 		array_shift( $this->menus );
-	} // End menu_display()
+	} // End function menu_display()
 
-} // End THTK_Menus
+} // End class THTK_Menus
