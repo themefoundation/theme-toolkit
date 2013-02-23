@@ -216,3 +216,31 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 add_filter( 'thtk_customizer_filter', 'thtk_example_customizer' );
 
 
+
+// Checks to make sure child theme hasn't used this function before executing.
+if ( !function_exists( 'thtk_example_menus' ) ) {
+	/**
+	 * Defines menu arrays
+	 */
+	function thtk_example_menus() {
+	
+		// Defines single menu.
+		$menus[] = array(
+			'id' => 'example_menu',
+			'title' => 'Example Menu',
+			'hook' => 'name of action hook',
+		);
+
+		// Defines single menu.
+		$menus[] = array(
+			'id' => 'another_menu',
+			'title' => 'Another Menu',
+			'hook' => 'name of action hook',
+		); 
+		
+		// Add other menus here as needed.
+		
+		return $menus;
+	} // End function thtk_example_menus()
+} // End if 
+add_filter( 'thtk_menus_filter', 'thtk_example_menus' );
