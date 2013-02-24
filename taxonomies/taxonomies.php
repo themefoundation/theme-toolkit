@@ -86,7 +86,6 @@ class THTK_Taxonomies{
 					 	$default_label[ 'search_items' ] = 'Search ' . $taxonomy[ 'title' ];
 					 	$default_label[ 'search_items' ] = 'Search ' . $taxonomy[ 'title' ];
 					 	$default_label[ 'search_items' ] = 'Search ' . $taxonomy[ 'title' ];
-
 					 	if( isset( $taxonomy[ 'hierarchical' ] ) ) {
 					 		$default_label[ 'parent_item' ] = 'Popular ' . $taxonomy[ 'title' ];
 					 	} else {
@@ -95,7 +94,6 @@ class THTK_Taxonomies{
 					 		$default_label[ 'add_or_remove_items' ] = 'Add or remove ' . strtolower( $taxonomy[ 'title' ] );
 					 		$default_label[ 'separate_items_with_commas' ] = 'Separate ' . strtolower( $taxonomy[ 'title' ] ) . ' with commas';
 					 	}
-
 						unset( $taxonomy[ 'title' ] );
 					}
 
@@ -107,13 +105,11 @@ class THTK_Taxonomies{
 					 	$default_label[ 'update_item' ] = 'Update ' . $taxonomy[ 'title_singular' ];
 					 	$default_label[ 'add_new_item' ] = 'Add New ' . $taxonomy[ 'title_singular' ];
 					 	$default_label[ 'new_item_name' ] = 'New ' . $taxonomy[ 'title_singular' ] . 'Name';
-
 					 	if( isset( $taxonomy[ 'hierarchical' ] ) ) {
 					 		$default_label[ 'parent_item' ] = 'Parent ' . $taxonomy[ 'title_singular' ];
 					 		$default_label[ 'parent_item_colon' ] = 'Parent ' . $taxonomy[ 'title_singular' ] . ':';
 
 					 	}
-
 						unset( $taxonomy[ 'title_singular' ] );
 					}
 
