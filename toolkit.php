@@ -37,14 +37,6 @@ function add_toolkit_support( $feature ) {
 			break;
 
 	
-		case 'theme-customizer' :
-	
-			// Loads files required for a theme customizer.
-			require_once 'theme-options/theme-customizer.php';
-			require_once 'forms/sanitize.php';
-			break;
-			
-			
 		case 'menus' :
 		
 			// Loads files required for custom menus.
@@ -71,6 +63,30 @@ function add_toolkit_support( $feature ) {
 			// Passes meta box array to a new instance of the meta box class.
 			$thtk_meta_boxes = new THTK_Meta_Boxes( $thtk_meta_box_array );
 			break;
+
+
+		case 'taxonomies' :
+
+			// Includes required files.
+			require_once 'taxonomies/taxonomies.php';
+			
+			// Adds filter for attaching meta box array.
+			$thtk_taxonomy_array = apply_filters( 'thtk_taxonomies_filter', array() );
+
+			// Passes meta box array to a new instance of the meta box class.
+			$thtk_taxonomies = new THTK_Taxonomies( $thtk_taxonomy_array );
+			break;
+
+
+		case 'theme-customizer' :
+	
+			// Loads files required for a theme customizer.
+			require_once 'theme-options/theme-customizer.php';
+			require_once 'forms/sanitize.php';
+			break;
+			
+			
+
 			
 	} // End switch $feature
 } // End add_toolkit_support()

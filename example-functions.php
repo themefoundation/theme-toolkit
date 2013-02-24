@@ -29,11 +29,45 @@ function thtk_setup() {
 	add_toolkit_support( 'custom-post-types' );
 	add_toolkit_support( 'menus' );
 	add_toolkit_support( 'meta-boxes' );
+	add_toolkit_support( 'taxonomies' );
 	add_toolkit_support( 'theme-customizer' );
 
 
 } // End function thtk_setup()
 add_action( 'init', 'thtk_setup' );
+
+
+
+// Checks to make sure child theme hasn't used this function before executing.
+if ( !function_exists( 'thtk_example_taxonomies' ) ) {
+	/**
+	 * Defines custom taxonomy arrays
+	 */
+	function thtk_example_taxonomies() {
+
+		// Defines single taxonomy.
+		$custom_taxonomies[] = array(
+			'id' => 'example_taxonomy',
+			'object_type' => 'example_post_type',
+			'title' => 'Groups',
+			'title_singular' => 'Group',
+			'hierarchical' => true,
+		);
+
+		// Defines single post type.
+		$custom_taxonomies[] = array(
+			'id' => 'another_post_type',
+			'object_type' => 'post',
+			'title' => 'Classifications',
+			'title_singular' => 'Classification',
+		);
+		
+		// Add other taxonomies here as needed.
+		
+		return $custom_taxonomies;
+	} // End function thtk_example_taxonomies()
+} // End if 
+add_filter( 'thtk_taxonomies_filter', 'thtk_example_taxonomies' );
 
 
 
