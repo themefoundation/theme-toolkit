@@ -35,9 +35,9 @@ class THTK_Form_Input {
 		'before' => '', // Custom content to place before the input.
 		'after' => '' // Custom content to place after the input.
 	);
-	
-	
-	
+
+
+
 	/**
 	 * Merges the arguments array with the defaults array.
 	 *
@@ -52,8 +52,8 @@ class THTK_Form_Input {
 		return $particulars;
 	} // End get_particulars()
 
-	
-	
+
+
 	/**
 	 * Displays the label for a form element
 	 *
@@ -69,7 +69,7 @@ class THTK_Form_Input {
 	} // End get_label()
 
 
-	
+
 	/**
 	 * Generates a form element description
 	 *
@@ -95,14 +95,14 @@ class THTK_Form_Input {
 
 		// Extracts the element details array into individual variables.
 		extract( $args );
-		
+
 		// Returns the output string.
 		return '<input type="text" id="' . $id . '" name="' . $name . '" value="' . esc_attr( $value ) . '" class="' . esc_attr( 'option-field-' . esc_attr( $size ) . ' ' . $class ) . '" />';
-	
+
 	} // End get_text_input()
-	
-	
-	
+
+
+
 	/**
 	 * Generates a checkbox input
 	 *
@@ -110,13 +110,13 @@ class THTK_Form_Input {
 	 * @return string The HTML checkbox input element.
 	 */
 	public function get_checkbox_input( $particulars ) {
-	
+
 		// Extracts the element details array into individual variables.
 		extract( $particulars );
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
-		
+
 		// Generates the output string.
 		$output .= '<label for="' . $id . '">';
 		$output .= '<input type="checkbox" id="' . $id . '" name="' . $name . '" value="true"';
@@ -126,10 +126,10 @@ class THTK_Form_Input {
 			$output .= $label;
 		}
 		$output .= '</label><br />';
-		
+
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_checkbox_input()
 
 
@@ -141,18 +141,18 @@ class THTK_Form_Input {
 	 * @return string The HTML radio button input element.
 	 */
 	public function get_radio_buttons( $particulars ) {
-		
+
 		// Extracts the element details array into individual variables.
 		extract( $particulars );
-		
+
 		// Sets the $line_break variable if not already set.
 		if( !isset( $line_break ) ) {
 			$line_break = true;
 		}
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
-		
+
 		// Generates the output string.
 		foreach ( $choices as $choice => $label ) {
 			$output .= '<label for="' . $choice . '">';
@@ -163,10 +163,10 @@ class THTK_Form_Input {
 				$output .= '<br />';
 			}
 		}
-		
+
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_radio_buttons()
 
 
@@ -178,13 +178,13 @@ class THTK_Form_Input {
 	 * @return string The HTML select list input element.
 	 */
 	public function get_select_list( $particulars ) {
-		
+
 		// Extracts the element details array into individual variables.
 		extract( $particulars );
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
-		
+
 		// Generates the output string.
 		$output = '<select id="' . $id . '" name="' . $name . '">';
 
@@ -194,10 +194,10 @@ class THTK_Form_Input {
 		} // End foreach $choices
 
 		$output .= '</select>';
-		
+
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_select_list()
 
 
@@ -209,13 +209,13 @@ class THTK_Form_Input {
 	 * @return string The HTML textarea input element.
 	 */
 	public function get_textarea( $particulars ) {
-		
+
 		// Extracts the element details array into individual variables.
 		extract( $particulars );
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
-		
+
 		// Generates the output string.
 		$output = '<textarea';
 		$output .= ' id="' . $id . '"';
@@ -223,13 +223,13 @@ class THTK_Form_Input {
 		if ( $value ) {
 			$output .= $value;
 		} // End if
-		$output .= '</textarea>';	
-		
+		$output .= '</textarea>';
+
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_textarea()
-	
+
 } // End class THTK_Form_Input
 
 
@@ -244,24 +244,24 @@ class THTK_Form_Input {
  * @since 1.0
  */
 class THTK_Form_Meta_Box extends THTK_Form_Input{
-	
+
 	/**
 	 * Displays a form element with meta box formatting
-	 * 
+	 *
 	 * @since 1.0
 	 * @return string The fully formatted meta box option.
 	 */
 	function get_meta_box( $args ) {
-		
+
 		// Sets default variables for details not defined for this element.
 		$particulars = $this->get_particulars( $args );
-		
+
 		// Extracts the element details array into individual variables.
 		extract( $particulars );
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
-		
+
 		// Generates the output string
 		$output .= '<tr class="' . esc_attr( $id ) . '"><th>';
 		if ( $type == 'checkbox' || $type == 'radio' ) {
@@ -272,7 +272,7 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 		$output .= '</th><td>';
 		$output .= '<span class="' .esc_attr( $align ) . '">';
 		$output .= $before;
-		
+
 		// Calls form element display functions based on the type of input field.
 		switch ( $type ) {
 			case 'text':
@@ -290,18 +290,21 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 			case 'textarea':
 				$output .= $this->get_textarea( $particulars );
 				break;
+			default:
+				$output .= call_user_func( $type, $particulars );
+				break;
 		}
-		
+
 		$output .= $after;
 		$output .= '</span>';
 		$output .= $this->get_description( $desc );
 		$output .= '</td></tr>'."\n";
-		
+
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_meta_box()
-	
+
 } // End class THTK_Form_Meta_Box
 
 
@@ -316,18 +319,18 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
  * @since 1.0
  */
 class THTK_Form_Formatted extends THTK_Form_Input{
-	
+
 	/**
 	 * Displays a form input with label and description fully formatted
 	 *
 	 * @since 1.0
 	 * @return string The HTML text input element with full formatting.
-	 */	
+	 */
 	public function get_formatted() {
 
 		// Extracts the element details array into individual variables.
 		extract( $this->particulars );
-		
+
 		// Creates a variable to hold the output string.
 		$output = '';
 
@@ -363,7 +366,7 @@ class THTK_Form_Formatted extends THTK_Form_Input{
 
 		// Returns the output string.
 		return $output;
-		
+
 	} // End get_formatted()
 
 } // End class THTK_Form_Formatted
