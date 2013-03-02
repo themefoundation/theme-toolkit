@@ -21,20 +21,54 @@
  * @since toolkit 1.0
  */
 function thtk_setup() {
-	
+
 	// Loads the toolkit setup file.
 	require_once 'toolkit/toolkit.php';
-	
+
 	// Adds support for various toolkit features.
 	add_toolkit_support( 'custom-post-types' );
 	add_toolkit_support( 'menus' );
 	add_toolkit_support( 'meta-boxes' );
+	add_toolkit_support( 'post-thumbnails', array( 'post' ) );
 	add_toolkit_support( 'taxonomies' );
 	add_toolkit_support( 'theme-customizer' );
 
 
 } // End function thtk_setup()
 add_action( 'init', 'thtk_setup' );
+
+
+
+// Checks to make sure child theme hasn't used this function before executing.
+if ( !function_exists( 'thtk_example_post_thumbnails' ) ) {
+	/**
+	 * Defines custom taxonomy arrays
+	 */
+	function thtk_example_post_thumbnails() {
+
+		// Defines thumbnail image.
+		$post_thumbnails[] = array(
+			'id' => 'example_thumbnail',
+			'width' => 200,
+			'height' => 100,
+			'crop' => true, // Optional. Default: false.
+			'hook' => 'example_hook',
+		);
+
+		// Defines thumbnail image.
+		$post_thumbnails[] = array(
+			'id' => 'another_thumbnail',
+			'width' => 100,
+			'height' => 200,
+			'hook' => 'wp_footer',
+		);
+
+		// Add other thumbnail images here as needed.
+
+		return $post_thumbnails;
+	} // End function thtk_example_post_thumbnails()
+} // End if
+add_filter( 'thtk_post_thumbnails_filter', 'thtk_example_post_thumbnails' );
 
 
 
@@ -61,12 +95,12 @@ if ( !function_exists( 'thtk_example_taxonomies' ) ) {
 			'title' => 'Classifications',
 			'title_singular' => 'Classification',
 		);
-		
+
 		// Add other taxonomies here as needed.
-		
+
 		return $custom_taxonomies;
 	} // End function thtk_example_taxonomies()
-} // End if 
+} // End if
 add_filter( 'thtk_taxonomies_filter', 'thtk_example_taxonomies' );
 
 
@@ -77,7 +111,7 @@ if ( !function_exists( 'thtk_example_post_types' ) ) {
 	 * Defines custom post type arrays
 	 */
 	function thtk_example_post_types() {
-	
+
 		// Defines single post type.
 		$custom_post_types[] = array(
 			'id' => 'example_post_type',
@@ -97,12 +131,12 @@ if ( !function_exists( 'thtk_example_post_types' ) ) {
 			'title' => 'Samples',
 			'title_singular' => 'Sample',
 		);
-		
+
 		// Add other post types here as needed.
-		
+
 		return $custom_post_types;
 	} // End function thtk_example_post_types()
-} // End if 
+} // End if
 add_filter( 'thtk_custom_post_types_filter', 'thtk_example_post_types' );
 
 
@@ -113,10 +147,10 @@ if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 	 * Defines meta box arrays
 	 */
 	function thtk_example_meta_boxes() {
-	
+
 		// Defines $prefix. Should begin with an underscore unless you want fields to be doubled in the Custom Fields editor.
 		$prefix = '_example_';
-		
+
 		// Defines meta box array.
 		$meta_boxes[] = array(
 			'id' => 'example_meta_box',
@@ -168,7 +202,7 @@ if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 				),
 			) // End array meta_box_fields
 		); // End array $meta_boxes
-		
+
 			$meta_boxes[] = array(
 			'id' => 'another_meta_box',
 			'title' => 'Another Meta Box',
@@ -180,13 +214,13 @@ if ( !function_exists( 'thtk_example_meta_boxes' ) ) {
 					'type' => 'text',
 				),
 			) // End array meta_box_fields
-		); // End array $meta_boxes	
-		
+		); // End array $meta_boxes
+
 		// Add other meta boxes here as needed.
-		
+
 		return $meta_boxes;
 	} // End function thtk_example_meta_boxes()
-} // End if 
+} // End if
 add_filter( 'thtk_meta_boxes_filter', 'thtk_example_meta_boxes' );
 
 
@@ -197,10 +231,10 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 	 * Defines theme customizer arrays
 	 */
 	function thtk_example_customizer() {
-		
-		// Defines $prefix for setting IDs. Optional. 
+
+		// Defines $prefix for setting IDs. Optional.
 		$prefix = 'example_';
-		
+
 		// Defines theme cusotmizer sections and settings
 		$customizer_section[] = array(
 			'section_id' => 'example_settings', // Settings section ID.
@@ -252,7 +286,7 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 				),
 			)
 		); // End $customizer_section[]
-		 
+
 		$customizer_section[] = array(
 			'section_id' => 'more_settings',
 			'section_title' => 'More Settings',
@@ -282,10 +316,10 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 				),
 			)
 		); // End $customizer_section[]
-		
+
 		return $customizer_section;
 	} // End function thtk_example_customizer()
-} // End if 
+} // End if
 add_filter( 'thtk_customizer_filter', 'thtk_example_customizer' );
 
 
@@ -296,7 +330,7 @@ if ( !function_exists( 'thtk_example_menus' ) ) {
 	 * Defines menu arrays
 	 */
 	function thtk_example_menus() {
-	
+
 		// Defines single menu.
 		$menus[] = array(
 			'id' => 'example_menu',
@@ -309,11 +343,11 @@ if ( !function_exists( 'thtk_example_menus' ) ) {
 			'id' => 'another_menu',
 			'title' => 'Another Menu',
 			'hook' => 'name of action hook',
-		); 
-		
+		);
+
 		// Add other menus here as needed.
-		
+
 		return $menus;
 	} // End function thtk_example_menus()
-} // End if 
+} // End if
 add_filter( 'thtk_menus_filter', 'thtk_example_menus' );
