@@ -91,10 +91,10 @@ class THTK_Form_Input {
 	 * @since 1.0
 	 * @return string The HTML text input element.
 	 */
-	public function get_text_input( $args ) {
+	public function get_text_input( $particulars ) {
 
 		// Extracts the element details array into individual variables.
-		extract( $args );
+		extract( $particulars );
 
 		// Returns the output string.
 		return '<input type="text" id="' . $id . '" name="' . $name . '" value="' . esc_attr( $value ) . '" class="' . esc_attr( 'option-field-' . esc_attr( $size ) . ' ' . $class ) . '" />';
@@ -230,6 +230,38 @@ class THTK_Form_Input {
 
 	} // End get_textarea()
 
+
+
+	/**
+	 * Generates a color picker
+	 *
+	 * @since 1.0
+	 * @return string The HTML text input element.
+	 */
+	public function get_color_picker( $particulars ) {
+
+		// Extracts the element details array into individual variables.
+		extract( $particulars );
+
+		// Enqueues required styles and scripts
+		add_action( 'admin_enqueue_scripts', array( $this, 'color_picker_enqueue' ) );
+		add_action( 'admin_head', array( $this, 'color_picker_js' ) );
+
+
+		// Returns the output string.
+		return $this->get_text_input( $particulars );
+
+	} // End get_text_input()
+
+
+
+
+
+
+
+
+
+
 } // End class THTK_Form_Input
 
 
@@ -289,6 +321,9 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 				break;
 			case 'textarea':
 				$output .= $this->get_textarea( $particulars );
+				break;
+			case 'color':
+				$output .= $this->get_color_picker( $particulars );
 				break;
 			default:
 				$output .= call_user_func( $type, $particulars );
@@ -356,6 +391,9 @@ class THTK_Form_Formatted extends THTK_Form_Input{
 				break;
 			case 'textarea':
 				$output .= $this->get_textarea();
+				break;
+			case 'color':
+				$output .= $this->get_color_picker();
 				break;
 		}
 
