@@ -46,11 +46,13 @@ class THTK_Form_Input {
 	 */
 	public function get_particulars( $args ) {
 		$particulars = wp_parse_args( $args, $this->defaults );
+
 		if( empty( $particulars[ 'name' ] ) ){
 			$particulars[ 'name' ] = $particulars[ 'id' ];
-		}
+		} // End if
+
 		return $particulars;
-	} // End get_particulars()
+	} // End function get_particulars()
 
 
 
@@ -63,10 +65,12 @@ class THTK_Form_Input {
 	 * @return string The HTML label element.
 	 */
 	public function get_label( $label, $id = '' ) {
+
 		if ( $label ) {
 			return '<label for="' . $id . '">' . $label . '</label>';
-		}
-	} // End get_label()
+		} // End if
+
+	} // End function get_label()
 
 
 
@@ -78,10 +82,12 @@ class THTK_Form_Input {
 	 * @return string The description string formatted as a paragraph.
 	 */
 	public function get_description( $desc ) {
+
 		if ( $desc ) {
 			return ' <p class="description">' . $desc . '</p>';
-		}
-	} // End get_description()
+		} // End if
+
+	} // End function get_description()
 
 
 
@@ -122,15 +128,17 @@ class THTK_Form_Input {
 		$output .= '<input type="checkbox" id="' . $id . '" name="' . $name . '" value="true"';
 		$output .= checked( $value, 'true', false );
 		$output .= ' /> ';
+
 		if( isset( $label ) ) {
 			$output .= $label;
-		}
+		} // End if
+
 		$output .= '</label><br />';
 
 		// Returns the output string.
 		return $output;
 
-	} // End get_checkbox_input()
+	} // End function get_checkbox_input()
 
 
 
@@ -148,7 +156,7 @@ class THTK_Form_Input {
 		// Sets the $line_break variable if not already set.
 		if( !isset( $line_break ) ) {
 			$line_break = true;
-		}
+		} // End if
 
 		// Creates a variable to hold the output string.
 		$output = '';
@@ -161,13 +169,13 @@ class THTK_Form_Input {
 			$output .= ' /> ' . $label . '</label>';
 			if ( $line_break ) {
 				$output .= '<br />';
-			}
-		}
+			} // End if
+		} // End foreach $choices
 
 		// Returns the output string.
 		return $output;
 
-	} // End get_radio_buttons()
+	} // End function get_radio_buttons()
 
 
 
@@ -198,7 +206,7 @@ class THTK_Form_Input {
 		// Returns the output string.
 		return $output;
 
-	} // End get_select_list()
+	} // End function get_select_list()
 
 
 
@@ -228,7 +236,7 @@ class THTK_Form_Input {
 		// Returns the output string.
 		return $output;
 
-	} // End get_textarea()
+	} // End function get_textarea()
 
 
 
@@ -251,16 +259,7 @@ class THTK_Form_Input {
 		// Returns the output string.
 		return $this->get_text_input( $particulars );
 
-	} // End get_text_input()
-
-
-
-
-
-
-
-
-
+	} // End function get_color_picker()
 
 } // End class THTK_Form_Input
 
@@ -296,11 +295,13 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 
 		// Generates the output string
 		$output .= '<tr class="' . esc_attr( $id ) . '"><th>';
+
 		if ( $type == 'checkbox' || $type == 'radio' ) {
 			$output .= $title;
 		} else {
 			$output .= $this->get_label( $title, $id );
-		}
+		} // End if/else
+
 		$output .= '</th><td>';
 		$output .= '<span class="' .esc_attr( $align ) . '">';
 		$output .= $before;
@@ -328,7 +329,7 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 			default:
 				$output .= call_user_func( $type, $particulars );
 				break;
-		}
+		} // End switch $type
 
 		$output .= $after;
 		$output .= '</span>';
@@ -338,7 +339,7 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 		// Returns the output string.
 		return $output;
 
-	} // End get_meta_box()
+	} // End function get_meta_box()
 
 } // End class THTK_Form_Meta_Box
 
@@ -395,7 +396,7 @@ class THTK_Form_Formatted extends THTK_Form_Input{
 			case 'color':
 				$output .= $this->get_color_picker();
 				break;
-		}
+		} // End switch $type
 
 		$output .= $after;
 		$output .= '</span>';
@@ -405,7 +406,7 @@ class THTK_Form_Formatted extends THTK_Form_Input{
 		// Returns the output string.
 		return $output;
 
-	} // End get_formatted()
+	} // End function get_formatted()
 
 } // End class THTK_Form_Formatted
 

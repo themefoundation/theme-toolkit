@@ -25,6 +25,7 @@
  * @return string Sanitized text.
  */
 function thtk_sanitize_text( $input, $valid = 'text' ) {
+
 	switch ( $valid ) {
 		case 'text':
 			return sanitize_text_field( $input );
@@ -52,7 +53,8 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 		default:
 			return sanitize_text_field( $input );
 	} // End switch $valid
-} // End thtk_sanitize_text
+
+} // End function thtk_sanitize_text
 
 
 
@@ -67,10 +69,12 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
  * @return string Valid option from $valid array matching $input, otherwise null.
  */
 function thtk_sanitize_multiple_choice( $input, $valid ) {
+
 	if( array_key_exists( $input, $valid ) ) {
 		return $input;
 	} // End if
-}  // End thtk_sanitize_multiple_choice
+
+}  // End function thtk_sanitize_multiple_choice
 
 
 
@@ -86,10 +90,12 @@ function thtk_sanitize_multiple_choice( $input, $valid ) {
  * @return string Returns the $valid string if equal to $input, otherwise null.
  */
 function thtk_sanitize_checkbox( $input ) {
+
 	if( $input ) {
 		return 'true';
 	}  // End if
-} // End thtk_sanitize_checkbox()
+
+} // End function thtk_sanitize_checkbox()
 
 
 
@@ -104,7 +110,7 @@ function thtk_sanitize_checkbox( $input ) {
  */
 function thtk_sanitize_html( $input ) {
 	return wp_kses_post( force_balance_tags( $input ) );
-}
+} // End function thtk_sanitize_html()
 
 
 
@@ -120,8 +126,8 @@ function thtk_sanitize_html( $input ) {
 function thtk_sanitize_integer( $input ) {
 	if( is_numeric( $input ) ) {
 		return intval( $input );
-	}
-}
+	} // End if
+} // End function thtk_sanitize_integer()
 
 
 
@@ -135,12 +141,14 @@ function thtk_sanitize_integer( $input ) {
  * @return string Returns the $valid string after sanitization.
  */
 function thtk_sanitize_currency( $input ) {
+
 	if ( is_numeric( $input ) ) {
 		return $input ? number_format( $input, 2 ) : '';
 	} else {
 		return '';
-	}
-}
+	} // End if/else
+
+} // End function thtk_sanitize_currency()
 
 
 
@@ -157,14 +165,18 @@ function thtk_sanitize_currency( $input ) {
  * @return string|null
  */
 function thtk_sanitize_hex_color( $color ) {
-	if ( '' === $color )
-		return '';
 
-	// 3 or 6 hex digits, or the empty string.
-	if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
+	// Returns empty string if input was an empty string.
+	if ( '' === $color ) {
+		return '';
+	} // End if
+
+	// Returns 3 or 6 hex digits, or the empty string.
+	if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
 		return $color;
+	} // End if
 
 	return null;
-}
+} // End function thtk_sanitize_hex_color()
 
 
