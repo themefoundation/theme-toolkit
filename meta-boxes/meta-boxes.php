@@ -220,7 +220,6 @@ class THTK_Meta_Boxes{
 						break;
 
 					case 'color':
-					echo $valid;
 						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 

@@ -45,9 +45,9 @@ function thtk_sanitize_text( $input, $valid = 'text' ) {
 			return thtk_sanitize_currency( $input );
 			break;
 		case 'color':
-			return sanitize_hex_color( $input );
+			return thtk_sanitize_hex_color( $input );
 			break;
-			
+
 		// Default should be unnecessary, but provided as a fallback anyway.
 		default:
 			return sanitize_text_field( $input );
@@ -96,7 +96,7 @@ function thtk_sanitize_checkbox( $input ) {
 /**
  * Sanitizes HTML input
  *
- * Removes disallowed HTML tags and closes any tags that were left open. 
+ * Removes disallowed HTML tags and closes any tags that were left open.
  *
  * @since 1.0
  * @param string $input Input data to be sanitized.
@@ -141,4 +141,30 @@ function thtk_sanitize_currency( $input ) {
 		return '';
 	}
 }
+
+
+
+/**
+ * Validates a hex color.
+ *
+ * Returns either '', a 3 or 6 digit hex color (with #), or null.
+ * This function is borrowed directly from the class_wp_customize_manager.php
+ * file in WordPress core.
+ *
+ * @since 3.4.0
+ *
+ * @param string $color
+ * @return string|null
+ */
+function thtk_sanitize_hex_color( $color ) {
+	if ( '' === $color )
+		return '';
+
+	// 3 or 6 hex digits, or the empty string.
+	if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
+		return $color;
+
+	return null;
+}
+
 
