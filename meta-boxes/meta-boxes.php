@@ -23,6 +23,7 @@ class THTK_Meta_Boxes{
 	public $color_pickers = '';
 
 
+
 	/**
 	 * Receives the meta box array
 	 *
@@ -35,19 +36,26 @@ class THTK_Meta_Boxes{
 		add_action( 'add_meta_boxes', array( $this, 'meta_box_setup' ) );
 		add_action( 'save_post', array( $this, 'meta_box_save' ) );
 
+		// Loops through the meta boxes array.
 		foreach ( $this->meta_boxes as $meta_box ) {
+
+			// Loops through individual meta box fields
 			foreach ( $meta_box[ 'meta_box_fields'] as $meta_box_field ) {
+
+				// Checks for color picker field.
 				if ( $meta_box_field[ 'type' ] == 'color' ) {
 					$this->color_pickers[] = $meta_box_field[ 'id' ];
-				}
-			}
-		}
+				} // End if
+
+			} // End foreach $meta_box[ 'meta_box_fields']
+
+		} // End foreach $this->meta_boxes
 
 		if( !empty( $this->color_pickers ) ) {
 			add_action( 'admin_head', array( $this, 'color_picker_js' ) );
-		}
+		} // End if
 
-	}
+	} // End function __construct()
 
 
 
@@ -72,11 +80,11 @@ class THTK_Meta_Boxes{
 
 					if( empty( $meta_box[ 'context' ] ) ) {
 						$meta_box[ 'context' ] = 'normal';
-					}
+					} // End if
 
 					if( empty( $meta_box[ 'priority' ] ) ) {
 						$meta_box[ 'priority' ] = 'high';
-					}
+					} // End if
 
 					add_meta_box(
 						$meta_box[ 'id' ],
@@ -89,9 +97,12 @@ class THTK_Meta_Boxes{
 					);
 
 				} // End foreach $meta_box[ 'post_type' ]
+
 			} // End foreach $this->meta_boxes
+
 		} // End if
-	} // End meta_box_setup()
+
+	} // End function meta_box_setup()
 
 
 
@@ -111,11 +122,12 @@ class THTK_Meta_Boxes{
 
 		foreach( $this->color_pickers as $color_picker ) {
 			echo '$("#' . $color_picker . '").wpColorPicker();';
-		}
+		} // End foreach $this->color_pickers
 
 		echo '});';
 		echo '</script>';
-	} // End color_picker_js()
+
+	} // End function color_picker_js()
 
 
 
@@ -154,7 +166,7 @@ class THTK_Meta_Boxes{
 		// HTML to match WordPress native formatting.
 		echo '</table></div><!-- .thtk-meta-box -->';
 
-	} // End meta_box_content()
+	} // End function meta_box_content()
 
 
 
@@ -229,6 +241,6 @@ class THTK_Meta_Boxes{
 
 		} // End foreach $this->meta_boxes
 
-	} // End meta_box_save()
+	} // End function meta_box_save()
 
 } // End THTK_Meta_Boxes
