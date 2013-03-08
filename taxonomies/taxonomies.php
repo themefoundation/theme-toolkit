@@ -24,7 +24,6 @@ class THTK_Taxonomies{
 		'hierarchical' => false,
 		'update_count_callback' => '',
 		'rewrite' => true,
-		//'query_var' => $taxonomy,
 		'public' => true,
 		'show_ui' => null,
 		'show_tagcloud' => null,
