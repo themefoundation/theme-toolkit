@@ -102,10 +102,13 @@ function add_toolkit_support( $feature, $args = '' ) {
 			// Loads files required for a theme customizer.
 			require_once 'theme-options/theme-customizer.php';
 			require_once 'forms/sanitize.php';
+
+			// Adds filter for attaching customizer array.
+			$thtk_customizer_array = apply_filters( 'thtk_customizer_filter', array() );
+
+			// Passes customizer array to a new instance of the theme customizer class.
+			$thtk_customizer = new THTK_Theme_Customizer( $thtk_customizer_array );
 			break;
-
-
-
 
 	} // End switch $feature
 } // End add_toolkit_support()
