@@ -36,20 +36,6 @@ function add_toolkit_support( $feature, $args = '' ) {
 			$thtk_custom_post_types = new THTK_Custom_Post_Types( $thtk_custom_post_type_array );
 			break;
 
-
-		case 'menus' :
-
-			// Loads files required for custom menus.
-			require_once 'menus/menus.php';
-
-			// Adds filter for attaching menu array.
-			$thtk_menus_array = apply_filters( 'thtk_menus_filter', array() );
-
-			// Passes meta box array to a new instance of the menu class.
-			$thtk_menus = new THTK_Menus( $thtk_menus_array );
-			break;
-
-
 		case 'meta-boxes' :
 
 			// Includes required files.
@@ -62,26 +48,6 @@ function add_toolkit_support( $feature, $args = '' ) {
 
 			// Passes meta box array to a new instance of the meta box class.
 			$thtk_meta_boxes = new THTK_Meta_Boxes( $thtk_meta_box_array );
-			break;
-
-		case 'post-thumbnails' :
-
-			// Adds theme support for thumbnails
-			if( !empty( $args ) ) {
-				add_theme_support( 'post-thumbnails', $args );
-			} else {
-				add_theme_support( 'post-thumbnails' );
-			}
-
-
-			// Includes required files.
-			require_once 'post-thumbnails/post-thumbnails.php';
-
-			// Adds filter for attaching meta box array.
-			$thtk_post_thumbnails_array = apply_filters( 'thtk_post_thumbnails_filter', array() );
-
-			// Passes meta box array to a new instance of the meta box class.
-			$thtk_post_thumbnails = new THTK_Post_Thumbnails( $thtk_post_thumbnails_array );
 			break;
 
 		case 'taxonomies' :
