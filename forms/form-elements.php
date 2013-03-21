@@ -243,27 +243,45 @@ class THTK_Form_Input {
 	/**
 	 * Generates a color picker
 	 *
+	 * Deprecated. All it did was call the get_text_input() function
+	 *
 	 * @since 1.0
 	 * @return string The HTML text input element.
 	 */
 	public function get_color_picker( $particulars ) {
 
-		// Extracts the element details array into individual variables.
-		extract( $particulars );
-
-		// Enqueues required styles and scripts
-		add_action( 'admin_enqueue_scripts', array( $this, 'color_picker_enqueue' ) );
-		add_action( 'admin_head', array( $this, 'color_picker_js' ) );
-
-
-		// Returns the output string.
-		return $this->get_text_input( $particulars );
+		// See function description
 
 	} // End function get_color_picker()
 
+
+
+	/**
+	 * Generates an image uploader
+	 *
+	 * @since 1.0
+	 * @return string The HTML text input element.
+	 */
+	public function get_image_upload( $particulars ) {
+
+		// Extracts the element details array into individual variables.
+		extract( $particulars );
+
+		if ( empty( $value ) ) {
+			$value = '';
+		} // End if
+
+		$output = '';
+		$output .= $this->get_text_input( $particulars );
+		//$output .= '<input type="text" name="meta-image" id="meta-image" value="' . $value . '" />';
+		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_image_upload_label', 'Choose or Upload an Image') . '" />';
+
+		// Returns the output string.
+		return $output;
+
+	} // End function get_image_upload()
+
 } // End class THTK_Form_Input
-
-
 
 
 
@@ -324,7 +342,10 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 				$output .= $this->get_textarea( $particulars );
 				break;
 			case 'color':
-				$output .= $this->get_color_picker( $particulars );
+				$output .= $this->get_text_input( $particulars );
+				break;
+			case 'image':
+				$output .= $this->get_image_upload( $particulars );
 				break;
 			default:
 				$output .= call_user_func( $type, $particulars );
