@@ -26,6 +26,12 @@ class THTK_Meta_Boxes{
 	 * @access public
 	 * @var string
 	 */
+	public $file_uploaders = '';
+
+	/**
+	 * @access public
+	 * @var string
+	 */
 	public $image_uploaders = '';
 
 
@@ -54,6 +60,11 @@ class THTK_Meta_Boxes{
 				} // End if
 
 				// Checks for image uploader field.
+				if ( $meta_box_field[ 'type' ] == 'file' ) {
+					$this->file_uploaders[] = $meta_box_field[ 'id' ];
+				} // End if
+
+				// Checks for image uploader field.
 				if ( $meta_box_field[ 'type' ] == 'image' ) {
 					$this->image_uploaders[] = $meta_box_field[ 'id' ];
 				} // End if
@@ -64,6 +75,10 @@ class THTK_Meta_Boxes{
 
 		if( !empty( $this->color_pickers ) ) {
 			add_action( 'admin_head', array( $this, 'color_picker_js' ) );
+		} // End if
+
+		if( !empty( $this->file_uploaders ) ) {
+			add_action( 'admin_head', array( $this, 'file_upload_js' ) );
 		} // End if
 
 		if( !empty( $this->image_uploaders ) ) {
@@ -147,10 +162,37 @@ class THTK_Meta_Boxes{
 
 
 	/**
-	 * Generates custom image upload javascript code
+	 * Generates custom file upload javascript code
 	 *
-	 * Based in part on Thomas Griffin's New Media Image Uploader
-	 * https://github.com/thomasgriffin/New-Media-Image-Uploader
+	 * @since 1.0
+	 */
+	public function file_upload_js() {
+
+		// Enqueues required styles and scripts
+		wp_enqueue_media();
+
+		echo '<script>';
+		echo 'jQuery(document).ready(function($){';
+
+		foreach ( $this->file_uploaders as $file_uploader ) {
+			$uploader = array(
+				'id' => $file_uploader,
+				'type' => 'file',
+				'title' => apply_filters( 'thtk_file_upload_title', 'Choose a File'),
+				'button' => apply_filters( 'thtk_file_upload_button', 'Use this File'),
+			);
+			$this->upload_js( $uploader );
+		} // End foreach $this->image_uploaders
+
+		echo '});';
+		echo '</script>';
+
+	} // End function file_upload_js()
+
+
+
+	/**
+	 * Generates custom image upload javascript code
 	 *
 	 * @since 1.0
 	 */
@@ -163,14 +205,38 @@ class THTK_Meta_Boxes{
 		echo 'jQuery(document).ready(function($){';
 
 		foreach ( $this->image_uploaders as $image_uploader ) {
+			$uploader = array(
+				'id' => $image_uploader,
+				'type' => 'image',
+				'title' => apply_filters( 'thtk_image_upload_title', 'Choose an Image'),
+				'button' => apply_filters( 'thtk_image_upload_button', 'Use this Image'),
+			);
+			$this->upload_js( $uploader );
+		} // End foreach $this->image_uploaders
 
+		echo '});';
+		echo '</script>';
+
+	} // End function image_upload_js()
+
+
+
+	/**
+	 * Generates custom upload javascript code
+	 *
+	 * Based in part on Thomas Griffin's New Media Image Uploader
+	 * https://github.com/thomasgriffin/New-Media-Image-Uploader
+	 *
+	 * @since 1.0
+	 */
+	public function upload_js( $args ) {
 			// Sets the image frame variable name
-			$image_frame = 'meta_image_frame_' . $image_uploader;
+			$image_frame = 'meta_image_frame_' . $args['id'];
 			?>
 				// Instantiates the variable that holds the media library frame.
 				var <?php echo $image_frame; ?>;
 				// Runs when the image button is clicked.
-				$('#<?php echo $image_uploader; ?>-button').click(function(e){
+				$('#<?php echo $args['id']; ?>-button').click(function(e){
 
 					// Prevents the default action from occuring.
 					e.preventDefault();
@@ -185,31 +251,33 @@ class THTK_Meta_Boxes{
 
 					// Sets up the media library frame
 					<?php echo $image_frame; ?> = wp.media.frames.meta_image_frame = wp.media({
-						title: '<?php echo apply_filters( 'thtk_image_upload_label', 'Choose or Upload an Image'); ?>',
-						button: { text:  '<?php echo apply_filters( 'thtk_use_image_label', 'Use this image'); ?>' },
-						library: { type: 'image' }
+						title: '<?php echo $args['title']; ?>',
+						button: { text:  '<?php echo $args['button']; ?>' },
+						<?php
+							if( $args['type'] == 'image' ) {
+								echo 'library: { type: \'image\' }';
+							}
+						?>
+
 					});
 
 					// Runs when an image is selected.
 					<?php echo $image_frame; ?>.on('select', function(){
 
 						// Grabs the attachment selection and creates a JSON representation of the model.
-						var media_attachment = meta_image_frame_<?php echo $image_uploader; ?>.state().get('selection').first().toJSON();
+						var media_attachment = meta_image_frame_<?php echo $args['id']; ?>.state().get('selection').first().toJSON();
 
 						// Sends the attachment URL to our custom image input field.
-						$('#<?php echo $image_uploader; ?>').val(media_attachment.url);
+						$('#<?php echo $args['id']; ?>').val(media_attachment.url);
 					});
 
 					// Opens the media library frame.
 					<?php echo $image_frame; ?>.open();
 				});
 			<?php
-		} // End foreach $this->image_uploaders
-
-		echo '});';
-		echo '</script>';
 
 	} // End function image_upload_js()
+
 
 
 
@@ -314,6 +382,11 @@ class THTK_Meta_Boxes{
 						break;
 
 					case 'color':
+						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						break;
+
+					case 'file':
+						$valid = isset( $field['valid'] ) ? $field['valid'] : 'text';
 						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 

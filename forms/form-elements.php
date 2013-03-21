@@ -260,7 +260,7 @@ class THTK_Form_Input {
 	 * Generates an image uploader
 	 *
 	 * @since 1.0
-	 * @return string The HTML text input element.
+	 * @return string The HTML text input and button elements.
 	 */
 	public function get_image_upload( $particulars ) {
 
@@ -273,13 +273,38 @@ class THTK_Form_Input {
 
 		$output = '';
 		$output .= $this->get_text_input( $particulars );
-		//$output .= '<input type="text" name="meta-image" id="meta-image" value="' . $value . '" />';
-		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_image_upload_label', 'Choose or Upload an Image') . '" />';
+		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_image_upload_label', 'Choose an Image') . '" />';
 
 		// Returns the output string.
 		return $output;
 
 	} // End function get_image_upload()
+
+
+
+	/**
+	 * Generates a file uploader
+	 *
+	 * @since 1.0
+	 * @return string The HTML text input and button elements.
+	 */
+	public function get_file_upload( $particulars ) {
+
+		// Extracts the element details array into individual variables.
+		extract( $particulars );
+
+		if ( empty( $value ) ) {
+			$value = '';
+		} // End if
+
+		$output = '';
+		$output .= $this->get_text_input( $particulars );
+		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_file_upload_label', 'Choose a File') . '" />';
+
+		// Returns the output string.
+		return $output;
+
+	} // End function get_file_upload()
 
 } // End class THTK_Form_Input
 
@@ -343,6 +368,9 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 				break;
 			case 'color':
 				$output .= $this->get_text_input( $particulars );
+				break;
+			case 'file':
+				$output .= $this->get_file_upload( $particulars );
 				break;
 			case 'image':
 				$output .= $this->get_image_upload( $particulars );
