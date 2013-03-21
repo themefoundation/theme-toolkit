@@ -6,7 +6,6 @@
  * @subpackage Meta Boxes
  */
 
-//TODO: figure out why $valid is "text" not "color" for color fields and why specifying "color" fails and messes with the checkbox sanitization as well.
 
 
 /**
