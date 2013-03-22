@@ -9,10 +9,7 @@
  * @package Theme Toolkit
  * @version	1.0
  */
-
-
-
-function theme_toolkit_load( $args = '' ) {
+function theme_toolkit_init( $args = '' ) {
 
 	// Sets default toolkit variables
 	$defaults = array(
@@ -91,4 +88,4 @@ function theme_toolkit_load( $args = '' ) {
 
 	} // End if
 
-} // End function theme_toolkit_load()
+} // End function theme_toolkit_init()
