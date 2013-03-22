@@ -12,74 +12,83 @@
 
 
 
-/**
- * Adds support for individual toolkit features
- *
- * Selectively loads only files required for the toolkit features that are in use.
- *
- * @since toolkit 1.0
- * @param string $feature Name of feature for which to add support.
- */
-function add_toolkit_support( $feature, $args = '' ) {
+function theme_toolkit_load( $args = '' ) {
 
-	switch ( $feature ) {
+	// Sets default toolkit variables
+	$defaults = array(
+		'child_theme' => false, // Optional. Is toolkit located in child theme?
+		'toolkit_folder' => 'toolkit', // Optional. Name of folder containing the toolkit files.
+	);
 
-		case 'custom-post-types' :
+	$thtk_settings = wp_parse_args( $args, $defaults );
 
-			// Loads files required for a theme customizer.
-			require_once 'custom-post-types/custom-post-types.php';
+	// Sets toolkit location variables
+	if( $thtk_settings[ 'child_theme' ] ){
+		$thtk_location = get_stylesheet_directory() . '/' . $thtk_settings[ 'child_theme' ] . '/' . $thtk_settings[ 'toolkit_folder' ];
+		$thtk_location_uri = get_stylesheet_directory_uri() . '/' . $thtk_settings[ 'child_theme' ] . '/' . $thtk_settings[ 'toolkit_folder' ];
+	} else {
+		$thtk_location = get_template_directory() . '/' . $thtk_settings[ 'toolkit_folder' ];
+		$thtk_location_uri = get_template_directory_uri() . '/' . $thtk_settings[ 'toolkit_folder' ];
 
-			// Adds filter for attaching custom post type array.
-			$thtk_custom_post_type_array = apply_filters( 'thtk_custom_post_types_filter', array() );
+	} // End if/else
 
-			// Passes meta box array to a new instance of the custom post type class.
-			$thtk_custom_post_types = new THTK_Custom_Post_Types( $thtk_custom_post_type_array );
-			break;
+	// Sets up custom post type support
+	if( current_theme_supports( 'toolkit-custom-post-types' ) ) {
 
-		case 'meta-boxes' :
+		// Loads files required for the theme customizer.
+		include_once $thtk_location . '/custom-post-types/custom-post-types.php';
 
-			// Includes required files.
-			require_once 'meta-boxes/meta-boxes.php';
-			require_once 'forms/form-elements.php';
-			require_once 'forms/sanitize.php';
+		// Adds filter for attaching custom post type array.
+		$thtk_custom_post_type_array = apply_filters( 'thtk_custom_post_types_filter', array() );
 
-			// Adds filter for attaching meta box array.
-			$thtk_meta_box_array = apply_filters( 'thtk_meta_boxes_filter', array() );
+		// Passes meta box array to a new instance of the custom post type class.
+		$thtk_custom_post_types = new THTK_Custom_Post_Types( $thtk_custom_post_type_array );
 
-			// Passes meta box array to a new instance of the meta box class.
-			$thtk_meta_boxes = new THTK_Meta_Boxes( $thtk_meta_box_array );
-			break;
+	} // End if
 
-		case 'taxonomies' :
+	// Sets up custom meta box support
+	if( current_theme_supports( 'toolkit-meta-boxes' ) ) {
 
-			// Includes required files.
-			require_once 'taxonomies/taxonomies.php';
+		// Loads files required for custom meta boxes.
+		include_once $thtk_location . '/meta-boxes/meta-boxes.php';
+		include_once $thtk_location . '/forms/form-elements.php';
+		include_once $thtk_location . '/forms/sanitize.php';
 
-			// Adds filter for attaching meta box array.
-			$thtk_taxonomy_array = apply_filters( 'thtk_taxonomies_filter', array() );
+		// Adds filter for attaching meta box array.
+		$thtk_meta_box_array = apply_filters( 'thtk_meta_boxes_filter', array() );
 
-			// Passes meta box array to a new instance of the meta box class.
-			$thtk_taxonomies = new THTK_Taxonomies( $thtk_taxonomy_array );
-			break;
+		// Passes meta box array to a new instance of the meta box class.
+		$thtk_meta_boxes = new THTK_Meta_Boxes( $thtk_meta_box_array );
 
+	} // End if
 
-		case 'theme-customizer' :
+	// Sets up custom taxonomy support
+	if( current_theme_supports( 'toolkit-taxonomies' ) ) {
 
-			// Loads files required for a theme customizer.
-			require_once 'theme-options/theme-customizer.php';
-			require_once 'forms/sanitize.php';
+		// Loads files required for custom taxonomies.
+		include_once $thtk_location . '/taxonomies/taxonomies.php';
 
-			// Adds filter for attaching customizer array.
-			$thtk_customizer_array = apply_filters( 'thtk_customizer_filter', array() );
+		// Adds filter for attaching meta box array.
+		$thtk_taxonomy_array = apply_filters( 'thtk_taxonomies_filter', array() );
 
-			// Passes customizer array to a new instance of the theme customizer class.
-			$thtk_customizer = new THTK_Theme_Customizer( $thtk_customizer_array );
-			break;
+		// Passes meta box array to a new instance of the meta box class.
+		$thtk_taxonomies = new THTK_Taxonomies( $thtk_taxonomy_array );
 
-	} // End switch $feature
-} // End add_toolkit_support()
+	} // End if
 
+	// Sets up theme customizer support
+	if( current_theme_supports( 'toolkit-theme-customizer' ) ) {
 
+		// Loads files required for the theme customizer.
+		include_once $thtk_location . '/theme-options/theme-customizer.php';
+		include_once $thtk_location . '/forms/sanitize.php';
 
+		// Adds filter for attaching customizer array.
+		$thtk_customizer_array = apply_filters( 'thtk_customizer_filter', array() );
 
+		// Passes customizer array to a new instance of the theme customizer class.
+		$thtk_customizer = new THTK_Theme_Customizer( $thtk_customizer_array );
 
+	} // End if
+
+} // End function theme_toolkit_load()
