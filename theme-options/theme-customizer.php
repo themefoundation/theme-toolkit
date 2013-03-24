@@ -150,13 +150,15 @@ class THTK_Theme_Customizer{
 
 		} // End if
 
+		$sanitize = new THTK_Sanitization();
+
 		// Adds sanitization callbacks.
 		switch ( $valid ) {
 			case 'text':
 				$setting_array[ 'sanitize_callback' ] = 'sanitize_text_field';
 				break;
 			case 'html':
-				$setting_array[ 'sanitize_callback' ] = 'thtk_sanitize_html';
+				$setting_array[ 'sanitize_callback' ] = array( $sanitize, 'sanitize_html' );
 				break;
 			case 'url':
 				$setting_array[ 'sanitize_callback' ] = 'esc_url_raw';
@@ -165,10 +167,10 @@ class THTK_Theme_Customizer{
 				$setting_array[ 'sanitize_callback' ] = 'sanitize_email';
 				break;
 			case 'integer':
-				$setting_array[ 'sanitize_callback' ] = 'thtk_sanitize_integer';
+				$setting_array[ 'sanitize_callback' ] = array( $sanitize, 'sanitize_integer' );
 				break;
 			case 'currency':
-				$setting_array[ 'sanitize_callback' ] = 'thtk_sanitize_currency';
+				$setting_array[ 'sanitize_callback' ] = array( $sanitize, 'sanitize_currency' );
 				break;
 			case 'color':
 				$setting_array[ 'sanitize_callback' ] = 'sanitize_hex_color';

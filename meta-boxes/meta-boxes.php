@@ -344,6 +344,8 @@ class THTK_Meta_Boxes{
 			return;
 		} // End if
 
+		$sanitize = new THTK_Sanitization();
+
 		// Loops through the meta box arrays.
 		foreach ( $this->meta_boxes as $meta_box ) {
 
@@ -354,44 +356,44 @@ class THTK_Meta_Boxes{
 				switch ( $field[ 'type' ] ) {
 					case 'text':
 						$valid = isset( $field['valid'] ) ? $field['valid'] : 'text';
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 
 					case 'textarea':
 						$valid = isset( $field[ 'valid' ] ) ? $field[ 'valid' ] : 'text';
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 
 					case 'select':
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
 						break;
 
 					case 'radio':
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_multiple_choice( $_POST[ $field[ 'id' ] ], $field[ 'choices' ] ) );
 						break;
 
 					case 'checkbox':
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_checkbox( $_POST[ $field[ 'id' ] ], $field[ 'label' ] ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_checkbox( $_POST[ $field[ 'id' ] ], $field[ 'label' ] ) );
 						break;
 
 					case 'multicheck':
 						foreach ( $field[ 'choices' ] as $option_name => $option_label ) {
-							update_post_meta( $post_id, $option_name, thtk_sanitize_checkbox( $_POST[ $option_name ], $option_label ) );
+							update_post_meta( $post_id, $option_name, $sanitize->sanitize_checkbox( $_POST[ $option_name ], $option_label ) );
 						} // End foreach $field[ 'choices' ]
 						break;
 
 					case 'color':
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 
 					case 'file':
 						$valid = isset( $field['valid'] ) ? $field['valid'] : 'text';
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 
 					case 'image':
 						$valid = isset( $field['valid'] ) ? $field['valid'] : 'text';
-						update_post_meta( $post_id, $field[ 'id' ], thtk_sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
+						update_post_meta( $post_id, $field[ 'id' ], $sanitize->sanitize_text( $_POST[ $field[ 'id' ] ], $valid ) );
 						break;
 
 				} // End switch $field[ 'type' ]
