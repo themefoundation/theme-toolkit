@@ -40,6 +40,7 @@ class THTK_Taxonomies{
 	 * Constructor function which runs when the class is instantiated.
 	 *
 	 * @since 1.0
+	 * @param array $taxonomies Array of taxonomy settings.
 	 */
 	public function __construct( $taxonomies ){
 		$this->taxonomies = $taxonomies;

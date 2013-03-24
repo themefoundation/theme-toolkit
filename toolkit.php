@@ -9,6 +9,17 @@
  * @package Theme Toolkit
  * @version	1.0
  */
+
+
+
+/**
+ * Initializes the theme toolkit
+ *
+ * Sets the toolkit location and loads the required files.
+ *
+ * @param array $args Specifies the toolkit location.
+ * @since 1.0
+ */
 function theme_toolkit_init( $args = '' ) {
 
 	// Sets default toolkit variables

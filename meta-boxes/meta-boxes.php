@@ -6,28 +6,35 @@
  * @subpackage Meta Boxes
  */
 
-
-
 /**
- * Meta box class
+ * Custom meta box class
  *
  * @since 1.0
  */
 class THTK_Meta_Boxes{
 
 	/**
+	 * Stores color picker usage
+	 *
+	 * @since 1.0
 	 * @access public
 	 * @var string
 	 */
 	public $color_pickers = '';
 
 	/**
+	 * Stores file uploader usage
+	 *
+	 * @since 1.0
 	 * @access public
 	 * @var string
 	 */
 	public $file_uploaders = '';
 
 	/**
+	 * Stores image uploader usage
+	 *
+	 * @since 1.0
 	 * @access public
 	 * @var string
 	 */
@@ -41,8 +48,9 @@ class THTK_Meta_Boxes{
 	 * Constructor function which runs when the class is instantiated.
 	 *
 	 * @since 1.0
+	 * @param array $meta_boxes Array of meta box settings.
 	 */
-	public function __construct($meta_boxes){
+	public function __construct( $meta_boxes ){
 		$this->meta_boxes = $meta_boxes;
 		add_action( 'add_meta_boxes', array( $this, 'meta_box_setup' ) );
 		add_action( 'save_post', array( $this, 'meta_box_save' ) );
@@ -146,6 +154,7 @@ class THTK_Meta_Boxes{
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
 
+		// Writes color picker javascript
 		echo '<script>';
 		echo 'jQuery(document).ready(function($){';
 
@@ -167,9 +176,10 @@ class THTK_Meta_Boxes{
 	 */
 	public function file_upload_js() {
 
-		// Enqueues required styles and scripts
+		// Enqueues required styles and scripts.
 		wp_enqueue_media();
 
+		// Writes file upload javasript.
 		echo '<script>';
 		echo 'jQuery(document).ready(function($){';
 
@@ -197,9 +207,10 @@ class THTK_Meta_Boxes{
 	 */
 	public function image_upload_js() {
 
-		// Enqueues required styles and scripts
+		// Enqueues required styles and scripts.
 		wp_enqueue_media();
 
+		// Writes image upload javascript.
 		echo '<script>';
 		echo 'jQuery(document).ready(function($){';
 
@@ -227,6 +238,7 @@ class THTK_Meta_Boxes{
 	 * https://github.com/thomasgriffin/New-Media-Image-Uploader
 	 *
 	 * @since 1.0
+	 * @param array $args Array of uploader settings (id, type, title, button).
 	 */
 	public function upload_js( $args ) {
 			// Sets the image frame variable name
@@ -276,7 +288,6 @@ class THTK_Meta_Boxes{
 			<?php
 
 	} // End function image_upload_js()
-
 
 
 

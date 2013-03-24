@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Form elements
+ * Form input
  *
- * A collection of classes to display common form elements.
+ * A class to display common form elements.
  *
  * @package Theme Toolkit
  * @subpackage Forms
@@ -42,7 +42,8 @@ class THTK_Form_Input {
 	 * Merges the arguments array with the defaults array.
 	 *
 	 * @since 1.0
-	 * @param array $args The array of arguments to use when creating the form element.
+	 * @param array $args The initial array of arguments to use when creating the form element.
+	 * @return array $particulars The array of initial arguments parsed with the defaults.
 	 */
 	public function get_particulars( $args ) {
 		$particulars = wp_parse_args( $args, $this->defaults );
@@ -95,6 +96,7 @@ class THTK_Form_Input {
 	 * Generates a text input
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the text input.
 	 * @return string The HTML text input element.
 	 */
 	public function get_text_input( $particulars ) {
@@ -113,6 +115,7 @@ class THTK_Form_Input {
 	 * Generates a checkbox input
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the checkbox input.
 	 * @return string The HTML checkbox input element.
 	 */
 	public function get_checkbox_input( $particulars ) {
@@ -146,6 +149,7 @@ class THTK_Form_Input {
 	 * Generates a set of radio buttons
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the radio buttons.
 	 * @return string The HTML radio button input element.
 	 */
 	public function get_radio_buttons( $particulars ) {
@@ -183,6 +187,7 @@ class THTK_Form_Input {
 	 * Generates a select list
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the select list.
 	 * @return string The HTML select list input element.
 	 */
 	public function get_select_list( $particulars ) {
@@ -214,6 +219,7 @@ class THTK_Form_Input {
 	 * Generates a textarea
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the textarea.
 	 * @return string The HTML textarea input element.
 	 */
 	public function get_textarea( $particulars ) {
@@ -241,51 +247,10 @@ class THTK_Form_Input {
 
 
 	/**
-	 * Generates a color picker
-	 *
-	 * Deprecated. All it did was call the get_text_input() function
-	 *
-	 * @since 1.0
-	 * @return string The HTML text input element.
-	 */
-	public function get_color_picker( $particulars ) {
-
-		// See function description
-
-	} // End function get_color_picker()
-
-
-
-	/**
-	 * Generates an image uploader
-	 *
-	 * @since 1.0
-	 * @return string The HTML text input and button elements.
-	 */
-	public function get_image_upload( $particulars ) {
-
-		// Extracts the element details array into individual variables.
-		extract( $particulars );
-
-		if ( empty( $value ) ) {
-			$value = '';
-		} // End if
-
-		$output = '';
-		$output .= $this->get_text_input( $particulars );
-		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_image_upload_label', 'Choose an Image') . '" />';
-
-		// Returns the output string.
-		return $output;
-
-	} // End function get_image_upload()
-
-
-
-	/**
 	 * Generates a file uploader
 	 *
 	 * @since 1.0
+	 * @param array $particulars Settings by which to create the file uploader.
 	 * @return string The HTML text input and button elements.
 	 */
 	public function get_file_upload( $particulars ) {
@@ -306,6 +271,33 @@ class THTK_Form_Input {
 
 	} // End function get_file_upload()
 
+
+
+	/**
+	 * Generates an image uploader
+	 *
+	 * @since 1.0
+	 * @param array $particulars Settings by which to create the image uploader.
+	 * @return string The HTML text input and button elements.
+	 */
+	public function get_image_upload( $particulars ) {
+
+		// Extracts the element details array into individual variables.
+		extract( $particulars );
+
+		if ( empty( $value ) ) {
+			$value = '';
+		} // End if
+
+		$output = '';
+		$output .= $this->get_text_input( $particulars );
+		$output .= '<input type="button" id="' . $id . '-button" class="button" value="' . apply_filters( 'thtk_image_upload_label', 'Choose an Image') . '" />';
+
+		// Returns the output string.
+		return $output;
+
+	} // End function get_image_upload()
+
 } // End class THTK_Form_Input
 
 
@@ -323,6 +315,7 @@ class THTK_Form_Meta_Box extends THTK_Form_Input{
 	 * Displays a form element with meta box formatting
 	 *
 	 * @since 1.0
+	 * @param array $args Settings by which to create the meta box.
 	 * @return string The fully formatted meta box option.
 	 */
 	function get_meta_box( $args ) {

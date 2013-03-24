@@ -4,6 +4,7 @@
  *
  * @package Theme Toolkit
  * @subpackage Custom Post Types
+ * @since 1.0
  */
 
 /**
@@ -54,6 +55,7 @@ class THTK_Custom_Post_Types{
 	 * Constructor function which runs when the class is instantiated.
 	 *
 	 * @since 1.0
+	 * @param array $post_types Array of post type settings.
 	 */
 	public function __construct( $post_types ){
 		$this->post_types = $post_types;

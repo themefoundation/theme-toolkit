@@ -1,10 +1,8 @@
 <?php
-
 /**
- * Sanitization functions
+ * Sanitization
  *
- * This file contains a number of different functions for sanitizing
- * different types of data.
+ * This file handles the sanitation of input data.
  *
  * @package Theme Toolkit
  * @subpackage Forms
@@ -14,8 +12,7 @@
 /**
  * Sanitization class
  *
- * @package Theme Toolkit
- * @subpackage Sanitization
+ * @since 1.0
  */
 class THTK_Sanitization{
 

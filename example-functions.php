@@ -40,39 +40,6 @@ add_action( 'init', 'thtk_setup' );
 
 
 // Checks to make sure child theme hasn't used this function before executing.
-if ( !function_exists( 'thtk_example_post_thumbnails' ) ) {
-	/**
-	 * Defines custom taxonomy arrays
-	 */
-	function thtk_example_post_thumbnails() {
-
-		// Defines thumbnail image.
-		$post_thumbnails[] = array(
-			'id' => 'example_thumbnail',
-			'width' => 200,
-			'height' => 100,
-			'crop' => true, // Optional. Default: false.
-			'hook' => 'example_hook',
-		);
-
-		// Defines thumbnail image.
-		$post_thumbnails[] = array(
-			'id' => 'another_thumbnail',
-			'width' => 100,
-			'height' => 200,
-			'hook' => 'wp_footer',
-		);
-
-		// Add other thumbnail images here as needed.
-
-		return $post_thumbnails;
-	} // End function thtk_example_post_thumbnails()
-} // End if
-add_filter( 'thtk_post_thumbnails_filter', 'thtk_example_post_thumbnails' );
-
-
-
-// Checks to make sure child theme hasn't used this function before executing.
 if ( !function_exists( 'thtk_example_taxonomies' ) ) {
 	/**
 	 * Defines custom taxonomy arrays
@@ -321,33 +288,3 @@ if ( !function_exists( 'thtk_example_customizer' ) ) {
 	} // End function thtk_example_customizer()
 } // End if
 add_filter( 'thtk_customizer_filter', 'thtk_example_customizer' );
-
-
-
-// Checks to make sure child theme hasn't used this function before executing.
-if ( !function_exists( 'thtk_example_menus' ) ) {
-	/**
-	 * Defines menu arrays
-	 */
-	function thtk_example_menus() {
-
-		// Defines single menu.
-		$menus[] = array(
-			'id' => 'example_menu',
-			'title' => 'Example Menu',
-			'hook' => 'name of action hook',
-		);
-
-		// Defines single menu.
-		$menus[] = array(
-			'id' => 'another_menu',
-			'title' => 'Another Menu',
-			'hook' => 'name of action hook',
-		);
-
-		// Add other menus here as needed.
-
-		return $menus;
-	} // End function thtk_example_menus()
-} // End if
-add_filter( 'thtk_menus_filter', 'thtk_example_menus' );

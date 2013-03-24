@@ -22,6 +22,7 @@ class THTK_Theme_Customizer{
 	 * Constructor function which runs when the class is instantiated.
 	 *
 	 * @since 1.0
+	 * @param array $customizer_array Array of theme customizer settings.
 	 */
 	public function __construct( $customizer_array ){
 		$this->customizer_array = $customizer_array;
