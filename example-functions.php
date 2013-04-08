@@ -20,22 +20,28 @@
  *
  * @since toolkit 1.0
  */
-function thtk_setup() {
+function theme_toolkit_setup() {
+
+	// Adds theme support for toolkit features
+	add_theme_support( 'toolkit-custom-post-types' );
+	add_theme_support( 'toolkit-meta-boxes' );
+	add_theme_support( 'toolkit-taxonomies' );
+	add_theme_support( 'toolkit-theme-customizer' );
 
 	// Loads the toolkit setup file.
 	require_once 'toolkit/toolkit.php';
 
-	// Adds support for various toolkit features.
-	add_toolkit_support( 'custom-post-types' );
-	add_toolkit_support( 'menus' );
-	add_toolkit_support( 'meta-boxes' );
-	add_toolkit_support( 'post-thumbnails', array( 'post' ) );
-	add_toolkit_support( 'taxonomies' );
-	add_toolkit_support( 'theme-customizer' );
+	// Specifies toolkit folder location.
+	$args = array(
+		'child_theme' => false, // Optional. Only used if toolkit is located in a child theme. Default: false.
+		'toolkit_folder' => 'toolkit',  // Optional. Only used if "toolkit" folder is moved/renamed. Default: toolkit.
+	);
 
+	// Initializes the theme toolkit. $args can be ommitted if defaults are acceptable.
+	theme_toolkit_init( $args );
 
 } // End function thtk_setup()
-add_action( 'init', 'thtk_setup' );
+add_action( 'init', 'theme_toolkit_setup', 1 );
 
 
 
